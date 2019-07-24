@@ -1,0 +1,137 @@
+;(function registerLocalPlugin(Module) {
+  const options = {
+    paths: require.resolve.paths(__dirname),
+  }
+
+  if (!global.isModulePatchedForEslint) {
+    global.isModulePatchedForEslint = true
+    global.originalModuleFindPath = Module._findPath
+
+    Module._findPath = (request, paths, isPatched = false) => {
+      if (request === 'eslint-plugin-local') {
+        return require.resolve('./eslint-plugin-local')
+      }
+
+      if (
+        !isPatched &&
+        request.indexOf('eslint') > -1 &&
+        !request.startsWith('.')
+      ) {
+        return global.originalModuleFindPath(
+          request,
+          options.paths.concat(paths),
+          true,
+        )
+      }
+
+      return global.originalModuleFindPath(request, paths)
+    }
+  }
+})(require('module'))
+
+const aliases = require('./aliases')
+
+module.exports = {
+  plugins: ['react-pug', 'local', 'import-helpers'],
+  extends: ['datarockets', 'plugin:react-pug/all'],
+  globals: {
+    React: true,
+    styled: true,
+
+    // Transformed by Babel
+    Action: true,
+  },
+  rules: {
+    'local/component-names': 'error',
+    'local/require-aliases': 'error',
+    'local/use-atoms': 'error',
+
+    'import-helpers/order-imports': [
+      'error',
+      {
+        newlinesBetween: 'always',
+        groups: [
+          '/^(assert|async_hooks|buffer|child_process|cluster|console|constants|crypto|dgram|dns|domain|events|fs|http|http2|https|inspector|module|net|os|path|perf_hooks|process|punycode|querystring|readline|repl|stream|string_decoder|timers|tls|trace_events|tty|url|util|v8|vm|zli)/',
+          '/^((?!src|UI|Icons)\\w[\\w-\\./]+|@.+)$/',
+          '/^src\\/pages\\/.+$/',
+          '/^src\\/(?!collections|containers|components|forms|lib)[\\w-/]+$/',
+          '/^src\\/collections(\\/.+)?/',
+          '/^src\\/containers\\/.+/',
+          '/^src\\/components\\/.+/',
+          '/^src\\/forms\\/.+/',
+          '/^UI\\/[a-z].+/',
+          '/^UI\\/[A-Z].+/',
+          '/^Icons\\/.+/',
+          '/^src\\/lib\\/.+/',
+          'parent',
+          'sibling',
+          'index',
+        ],
+      },
+    ],
+
+    'react-pug/prop-types': 'error',
+
+    'react-pug/pug-lint': [
+      'error',
+      {
+        disallowClassLiteralsBeforeIdLiterals: true,
+        disallowHtmlText: true,
+        disallowTrailingSpaces: true,
+        requireClassLiteralsBeforeAttributes: true,
+        requireIdLiteralsBeforeAttributes: true,
+        requireSpaceAfterCodeOperator: true,
+        requireStrictEqualityOperators: true,
+        validateAttributeQuoteMarks: '"',
+        validateIndentation: 2,
+      },
+    ],
+
+    'react-pug/eslint': [
+      'error',
+      {
+        /* eslint-disable global-require, import/no-extraneous-dependencies */
+        ...require('eslint-config-airbnb-base/rules/best-practices').rules,
+        ...require('eslint-config-airbnb-base/rules/errors').rules,
+        ...require('eslint-config-airbnb-base/rules/es6').rules,
+        ...require('eslint-config-airbnb-base/rules/style').rules,
+        ...require('eslint-config-datarockets-base').rules,
+        /* eslint-enable */
+      },
+    ],
+
+    // Turned off because we want different style-guide
+    'import/no-cycle': 'off',
+    'no-param-reassign': 'off',
+    'prefer-destructuring': 'off',
+    'react/forbid-prop-types': 'off',
+    'object-curly-newline': [
+      'error',
+      {
+        ObjectExpression: {
+          minProperties: 3,
+          multiline: true,
+          consistent: true,
+        },
+        ObjectPattern: {
+          minProperties: 6,
+          multiline: true,
+          consistent: true,
+        },
+      },
+    ],
+    'class-methods-use-this': 'off',
+
+    // Turned off temporary because of pugjs
+    'react/prop-types': 'off',
+    'react/no-unused-prop-types': 'off',
+    'react/no-unused-state': 'off',
+  },
+  settings: {
+    'import/resolver': {
+      'babel-module': {
+        alias: aliases,
+      },
+    },
+  },
+}

@@ -1,0 +1,31 @@
+{
+  "name": "dreact-example",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "dreact": "file:../../",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "styled-components": "^4.3.2"
+  },
+  "devDependencies": {
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.14.0",
+    "jest-enzyme": "^7.0.2"
+  },
+  "eslintConfig": {
+    "extends": "./node_modules/dreact-cli/environment/eslint.config.js"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
