@@ -12,7 +12,7 @@ import { storiesOf } from 'dreact/helper-book'
 
 - #### `storiesOf`
 
-### For [addon-knobs]([knobs](https://github.com/storybookjs/storybook/tree/master/addons/knobs)
+### For [addon-knobs](https://github.com/storybookjs/storybook/tree/master/addons/knobs)
 
 - #### `array`
 - #### `boolean`
