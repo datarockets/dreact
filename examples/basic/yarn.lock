@@ -1119,6 +1119,11 @@
   resolved "https://registry.yarnpkg.com/@emotion/weak-memoize/-/weak-memoize-0.2.3.tgz#dfa0c92efe44a1d1a7974fb49ffeb40ef2da5a27"
   integrity sha512-zVgvPwGK7c1aVdUVc9Qv7SqepOGRDrqCw7KZPSZziWGxSlbII3gmvGLPzLX4d0n0BMbamBacUrN22zOMyFFEkQ==
 
+"@frontrockets/redux-abstract-action@^0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@frontrockets/redux-abstract-action/-/redux-abstract-action-0.0.1.tgz#96ff2d6e7778117499efa6ae191de8714d515795"
+  integrity sha512-+6ThueY4UnWMTiASyRhSr7sd2oCOimJJszV4Hu+5Zkdx2M5sp+Wpa8hrjgZ0o5mNiP/rH/NoXrvhWCWZgZJZlQ==
+
 "@hapi/address@2.x.x":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@hapi/address/-/address-2.0.0.tgz#9f05469c88cb2fd3dcd624776b54ee95c312126a"
@@ -4743,6 +4748,7 @@ dotenv@^8.0.0:
   version "0.0.0"
   dependencies:
     "@babel/core" "^7.5.5"
+    "@frontrockets/redux-abstract-action" "^0.0.1"
     "@storybook/addon-actions" "^5.1.9"
     "@storybook/addon-knobs" "^5.1.9"
     "@storybook/addon-storysource" "^5.1.9"
