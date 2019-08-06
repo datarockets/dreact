@@ -35,7 +35,5 @@ module.exports = (...args) => {
     },
   }
 
-  // throw new Error(__dirname)
-
   return config
 }
