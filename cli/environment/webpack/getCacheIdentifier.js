@@ -11,6 +11,10 @@ module.exports = () => {
   const files = []
   const sha = crypto.createHash('sha1')
 
+  if (!fs.existsSync(DIR_COLLECTIONS)) {
+    return ''
+  }
+
   fs.readdirSync(DIR_COLLECTIONS, { withFileTypes: true }).forEach(item => {
     if (item.isDirectory()) {
       const isReducerPresent = fs.existsSync(
