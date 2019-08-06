@@ -2,6 +2,7 @@ const path = require('path')
 const fs = require('fs')
 
 const transformActions = require('./babel/transform-actions')
+const accumulateCollections = require('./babel/accumulate-collections')
 const aliases = require('./aliases')
 
 const localConfigPath = path.resolve(process.cwd(), 'config/babel.config.js')
@@ -13,6 +14,7 @@ module.exports = {
 
   plugins: [
     transformActions,
+    accumulateCollections,
 
     [
       'module-resolver',
