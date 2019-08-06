@@ -27,7 +27,7 @@ function getExpectedName(filepath) {
 
   if (isPageComponent.match(filepath)) {
     return `Page${filepath
-      .replace(/^.+\/src\/pages\/([\w.]+)\.js/, '$1')
+      .replace(/^.+\/src\/pages\/([\w.]+)(\/index\.js|\.js)/, '$1')
       .replace(/\//g, '')}`
   }
 
