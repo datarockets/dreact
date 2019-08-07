@@ -6,9 +6,6 @@ const getCacheIdentifier = require('./webpack/getCacheIdentifier')
 const getClientDependency = module =>
   path.resolve(process.cwd(), 'node_modules', module)
 
-const getInternalDependency = module =>
-  path.resolve(__dirname, '..', '..', 'node_modules', module)
-
 module.exports = (...args) => {
   const config = buildGeneralConfig(...args)
 
