@@ -23,7 +23,6 @@
     "babel-plugin-react-require": "^3.1.1",
     "babel-plugin-styled-components": "^1.10.6",
     "babel-plugin-styled-components-require": "^1.1.0",
-    "babel-plugin-transform-jsx-classname-components": "^0.0.3",
     "babel-plugin-transform-react-pug": "^7.0.1",
     "dotenv": "^8.0.0",
     "eslint": "^6.1.0",

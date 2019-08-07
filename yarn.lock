@@ -2897,13 +2897,6 @@ babel-plugin-transform-inline-consecutive-adds@^0.4.3:
   resolved "https://registry.yarnpkg.com/babel-plugin-transform-inline-consecutive-adds/-/babel-plugin-transform-inline-consecutive-adds-0.4.3.tgz#323d47a3ea63a83a7ac3c811ae8e6941faf2b0d1"
   integrity sha1-Mj1Ho+pjqDp6w8gRro5pQfrysNE=
 
-babel-plugin-transform-jsx-classname-components@^0.0.3:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/babel-plugin-transform-jsx-classname-components/-/babel-plugin-transform-jsx-classname-components-0.0.3.tgz#924ecf890d61cd677bcde6b1fdd8581a0d1e4f4a"
-  integrity sha512-rL+uFPYDfEcX651r3+ACmeHoNXPLjiUCnmW6/AmNMXa504czKP1NAG95U+TQAqi57QQoyfKxVNB0uW8JVJDvBw==
-  dependencies:
-    babel-plugin-syntax-jsx "^6.18.0"
-
 babel-plugin-transform-member-expression-literals@^6.9.4:
   version "6.9.4"
   resolved "https://registry.yarnpkg.com/babel-plugin-transform-member-expression-literals/-/babel-plugin-transform-member-expression-literals-6.9.4.tgz#37039c9a0c3313a39495faac2ff3a6b5b9d038bf"

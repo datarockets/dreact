@@ -25,8 +25,6 @@ module.exports = {
 
     'transform-react-pug',
 
-    'transform-jsx-classname-components',
-
     'react-require', // should go after `transform-react-pug`
 
     'styled-components-require',
