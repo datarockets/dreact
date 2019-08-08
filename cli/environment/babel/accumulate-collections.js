@@ -9,10 +9,44 @@ const FILENAME_SAGA = 'saga.js'
 const PROPERTY_NAME_REDUCERS = 'reducers'
 const PROPERTY_NAME_SAGAS = 'sagas'
 
-module.exports = function babelPluginAccumulateCollections({ types: t }) {
-  const getRelative = absolute =>
-    `./${path.relative(COLLECTIONS_DIR, absolute)}`
+const getRelative = absolute => `./${path.relative(COLLECTIONS_DIR, absolute)}`
 
+function getReducersAndSagas() {
+  const sagas = []
+  const reducers = []
+
+  const buildItem = (name, absolutePath) => ({
+    id: name.toLowerCase(),
+    filepath: getRelative(absolutePath),
+  })
+
+  fs.readdirSync(COLLECTIONS_DIR, { withFileTypes: true }).forEach(item => {
+    if (!item.isDirectory()) {
+      return false
+    }
+
+    const reducerPath = path.resolve(
+      COLLECTIONS_DIR,
+      item.name,
+      FILENAME_REDUCER,
+    )
+    const sagaPath = path.resolve(COLLECTIONS_DIR, item.name, FILENAME_SAGA)
+
+    if (fs.existsSync(reducerPath)) {
+      reducers.push(buildItem(item.name, reducerPath))
+    }
+
+    if (fs.existsSync(sagaPath)) {
+      sagas.push(buildItem(item.name, sagaPath))
+    }
+
+    return null
+  })
+
+  return { sagas, reducers }
+}
+
+module.exports = function babelPluginAccumulateCollections({ types: t }) {
   function buildRequireFor(source) {
     return t.memberExpression(
       t.callExpression(t.identifier('require'), [t.stringLiteral(source)]),
@@ -20,83 +54,103 @@ module.exports = function babelPluginAccumulateCollections({ types: t }) {
     )
   }
 
-  function getReducersAndSagas() {
-    const sagas = []
-    const reducers = {}
-
-    fs.readdirSync(COLLECTIONS_DIR, { withFileTypes: true }).forEach(item => {
-      if (!item.isDirectory()) {
-        return false
-      }
-
-      const reducerPath = path.resolve(
-        COLLECTIONS_DIR,
-        item.name,
-        FILENAME_REDUCER,
-      )
-      const sagaPath = path.resolve(COLLECTIONS_DIR, item.name, FILENAME_SAGA)
-
-      if (fs.existsSync(reducerPath)) {
-        reducers[item.name.toLowerCase()] = buildRequireFor(
-          getRelative(reducerPath),
-        )
-      }
-
-      if (fs.existsSync(sagaPath)) {
-        sagas.push(buildRequireFor(getRelative(sagaPath)))
-      }
-
-      return null
+  function injectProperty(params, ref, value) {
+    const existingProperty = params.properties.find(property => {
+      const name = property.key.name || property.key.value
+      return name === ref
     })
 
-    return {
-      sagas,
-      reducers,
+    if (existingProperty) {
+      const isArray =
+        t.isArrayExpression(existingProperty.value) &&
+        t.isArrayExpression(value)
+
+      const isObject =
+        t.isObjectExpression(existingProperty.value) &&
+        t.isObjectExpression(value)
+
+      if (isArray) {
+        existingProperty.value.elements = [
+          ...existingProperty.value.elements,
+          ...value.elements,
+        ]
+      } else if (isObject) {
+        existingProperty.value.properties = [
+          ...value.properties,
+          ...existingProperty.value.properties,
+        ]
+      }
+    } else {
+      const property = t.objectProperty(t.identifier(ref), value)
+
+      params.properties.push(property)
     }
   }
 
-  function injectProperty(params, reference, value) {
-    const existedProperty = params.get('properties').find(property => {
-      const key = property.node.key.name || property.node.key.value
-      return key === reference
+  function convertToList(items) {
+    const list = []
+
+    items.forEach(item => {
+      const element = buildRequireFor(item.filepath)
+      list.push(element)
     })
 
-    if (existedProperty) {
-      const currentValue = existedProperty.get('value')
+    return t.arrayExpression(list)
+  }
 
-      if (currentValue.isObjectExpression()) {
-        currentValue.replaceWith(
-          t.objectExpression([...currentValue.node.properties, ...value]),
-        )
-      } else if (currentValue.isArrayExpression()) {
-        currentValue.replaceWith(
-          t.arrayExpression([...currentValue.node.elements, ...value]),
-        )
-      }
-    } else {
-      if (params.isObjectExpression()) {
-        params.replaceWith(t.objectExpression(value))
-      } else if (params.isArrayExpression()) {
-        params.replaceWith(t.arrayExpression(value))
-      }
-    }
+  function convertToObject(items) {
+    const properties = []
+
+    items.forEach(item => {
+      const element = t.objectProperty(
+        t.identifier(item.id),
+        buildRequireFor(item.filepath),
+      )
+      properties.push(element)
+    })
+
+    return t.objectExpression(properties)
   }
 
   return {
     name: 'babel-plugin-accumulate-collections',
     visitor: {
-      CallExpression(nodePath) {
-        if (nodePath.get('callee').node.name === 'makeStoreConfigurer') {
-          const params = nodePath.get('arguments')[0]
+      Program(nodePath, state) {
+        const { sagas, reducers } = getReducersAndSagas()
 
-          const { sagas, reducers } = getReducersAndSagas()
+        state.file.set('sagas', sagas)
+        state.file.set('reducers', reducers)
+      },
 
-          const reducersMap = Object.keys(reducers).map(key =>
-            t.objectProperty(t.identifier(key), reducers[key]),
-          )
+      CallExpression(nodePath, state) {
+        const needToAmendAndInjectCollections =
+          nodePath.get('callee').node.name === 'makeStoreConfigurer'
 
-          injectProperty(params, PROPERTY_NAME_SAGAS, sagas)
-          injectProperty(params, PROPERTY_NAME_REDUCERS, reducersMap)
+        if (needToAmendAndInjectCollections) {
+          const sagas = state.file.get('sagas')
+          const reducers = state.file.get('reducers')
+
+          const needInjectSagas = sagas.length > 0
+          const needInjectReducers = reducers.length > 0
+          const hasAnythingToInject = needInjectSagas || needInjectReducers
+          const noFirstArgument = nodePath.node.arguments.length === 0
+
+          if (hasAnythingToInject && noFirstArgument) {
+            const emptyObject = t.objectExpression([])
+            nodePath.node.arguments.push(emptyObject)
+          }
+
+          const params = nodePath.node.arguments[0]
+
+          if (needInjectSagas) {
+            const value = convertToList(sagas)
+            injectProperty(params, PROPERTY_NAME_SAGAS, value)
+          }
+
+          if (needInjectReducers) {
+            const value = convertToObject(reducers)
+            injectProperty(params, PROPERTY_NAME_REDUCERS, value)
+          }
         }
       },
     },

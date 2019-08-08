@@ -8,7 +8,7 @@ module.exports = function babelPluginTransformActions({ types: t }) {
   const needImportDecl = state => state.file.get('needImportDeclaration')
 
   const isCollectionActionsFile = state =>
-    (state.file.opts.filename || '').match(RE_COLLECTION_ACTIONS_FILE)
+    (state.filename || '').match(RE_COLLECTION_ACTIONS_FILE)
 
   return {
     name: 'babel-plugin-transform-actions',
@@ -41,7 +41,7 @@ module.exports = function babelPluginTransformActions({ types: t }) {
           path.node.callee.name === 'Action' &&
           path.parentPath.type === 'VariableDeclarator'
         ) {
-          const collectionName = state.file.opts.filename.replace(
+          const collectionName = state.filename.replace(
             RE_COLLECTION_ACTIONS_FILE,
             '$1',
           )
