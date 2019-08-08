@@ -43,7 +43,7 @@ module.exports = function(argv) {
     testEnvironment: 'jest-environment-jsdom-fourteen',
     transform: {
       '^.+\\.(js|jsx|ts|tsx)$':
-        '<rootDir>/node_modules/dreact-cli/environment/jest/babelTransform.js',
+        '<rootDir>/node_modules/dreact/cli/environment/jest/babelTransform.js',
       '^.+\\.css$':
         '<rootDir>/node_modules/react-scripts/config/jest/cssTransform.js',
       '^(?!.*\\.(js|jsx|ts|tsx|css|json)$)':
