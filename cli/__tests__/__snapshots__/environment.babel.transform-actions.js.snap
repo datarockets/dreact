@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`does not change when outside of actions file 1`] = `
+"const myActionCreators = new Action()
+"
+`;
+
+exports[`passes the first argument to transformed function 1`] = `
+"import createAction from 'dreact/helper-actions'
+const test = createAction('CollectionName/test', {
+  init: one => ({
+    two: one
+  })
+})
+"
+`;
+
+exports[`transforms empty new Action 1`] = `
+"import createAction from 'dreact/helper-actions'
+const myActionCreators = createAction('CollectionName/myActionCreators')
+"
+`;

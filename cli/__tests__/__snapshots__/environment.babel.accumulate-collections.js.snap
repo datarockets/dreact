@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`when src/collections has reducers adds reducers property to the empty params 1`] = `
+"makeStoreConfigurer({
+  reducers: {
+    first: require('./First/reducer.js').default,
+    second: require('./Second/reducer.js').default
+  }
+})"
+`;
+
+exports[`when src/collections has reducers adds reducers to the existing param 1`] = `
+"makeStoreConfigurer({
+  reducers: {
+    first: require('./First/reducer.js').default,
+    second: require('./Second/reducer.js').default,
+    form: FormReducer
+  }
+})"
+`;
+
+exports[`when src/collections has sagas adds sagas property to the empty params 1`] = `
+"makeStoreConfigurer({
+  sagas: [
+    require('./First/saga.js').default,
+    require('./Second/saga.js').default
+  ]
+})"
+`;
+
+exports[`when src/collections has sagas adds sagas to the existing param 1`] = `
+"makeStoreConfigurer({
+  sagas: [
+    'existing',
+    require('./First/saga.js').default,
+    require('./Second/saga.js').default
+  ]
+})"
+`;

@@ -1,6 +1,6 @@
 workflow "Validate" {
   on = "push"
-  resolves = ["Lint", "Install Dependencies"]
+  resolves = ["Install Dependencies", "Lint", "Test"]
 }
 
 action "Install Dependencies" {
@@ -12,4 +12,10 @@ action "Lint" {
   uses = "actions/npm@master"
   needs = ["Install Dependencies"]
   args = "run lint"
+}
+
+action "Test" {
+  uses = "actions/npm@master"
+  needs = ["Install Dependencies"]
+  args = "run test"
 }

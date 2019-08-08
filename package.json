@@ -3,7 +3,8 @@
   "version": "0.1.1",
   "description": "Build web applications as easy as datarockets do",
   "scripts": {
-    "lint": "prettier --check './**/*.{js,json,md,html}'"
+    "lint": "prettier --check '**/*.{js,json,md,html}'",
+    "test": "jest"
   },
   "bin": {
     "dreact": "./cli/bin/dreact.js"
@@ -13,10 +14,10 @@
   "dependencies": {
     "@babel/core": "^7.5.5",
     "@frontrockets/redux-abstract-action": "^0.0.1",
-    "@storybook/addon-actions": "^5.1.9",
-    "@storybook/addon-knobs": "^5.1.9",
-    "@storybook/addon-storysource": "^5.1.9",
-    "@storybook/react": "^5.1.9",
+    "@storybook/addon-actions": "^5.1.10",
+    "@storybook/addon-knobs": "^5.1.10",
+    "@storybook/addon-storysource": "^5.1.10",
+    "@storybook/react": "^5.1.10",
     "babel-jest": "^24.8.0",
     "babel-plugin-jsx-remove-data-test-id": "^2.0.0",
     "babel-plugin-module-resolver": "^3.2.0",
@@ -51,11 +52,34 @@
     "stylelint-processor-styled-components": "^1.8.0"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.5.5",
     "prettier": "^1.18.2"
   },
   "prettier": {
     "semi": false,
     "singleQuote": true,
     "trailingComma": "all"
+  },
+  "babel": {
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "targets": {
+            "node": "current"
+          }
+        }
+      ]
+    ]
+  },
+  "jest": {
+    "testMatch": [
+      "<rootDir>/**/__tests__/**/*.{js,jsx,ts,tsx}",
+      "<rootDir>/**/*.{spec,test}.{js,jsx,ts,tsx}"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "./examples"
+    ]
   }
 }
