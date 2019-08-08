@@ -22,6 +22,33 @@ const transform = (src, options) => {
     .trim()
 }
 
+beforeAll(() => {
+  // We act like we have empty ./src/collections directory by default
+
+  fs.readdirSync.mockReturnValue([])
+  fs.existsSync.mockImplementation(filepath => {
+    return /src\/collections(\/\w+\/(rerducer|saga)\.js)?$/.test(filepath)
+  })
+})
+
+describe('when src/collections does not exist', () => {
+  beforeAll(() => {
+    fs.readdirSync.mockImplementation(() => {
+      throw new Error()
+    })
+    fs.existsSync.mockImplementation(filepath => {
+      return /src\/collections$/.test(filepath) ? false : undefined
+    })
+  })
+
+  it('does not do anything', () => {
+    const input = 'makeStoreConfigurer()'
+    const result = transform(input)
+
+    expect(result).toBe(input)
+  })
+})
+
 describe('when src/collections is empty', () => {
   beforeAll(() => {
     fs.readdirSync.mockReturnValue([])
@@ -48,7 +75,7 @@ describe('when src/collections has sagas', () => {
     ])
 
     fs.existsSync.mockImplementation(filepath => {
-      return /src\/collections\/(First|Second)\/saga\.js$/.test(filepath)
+      return /src\/collections(\/(First|Second)\/saga\.js)?$/.test(filepath)
     })
   })
 
@@ -75,7 +102,7 @@ describe('when src/collections has reducers', () => {
     ])
 
     fs.existsSync.mockImplementation(filepath => {
-      return /src\/collections\/(First|Second)\/reducer\.js$/.test(filepath)
+      return /src\/collections(\/(First|Second)\/reducer\.js)?$/.test(filepath)
     })
   })
 

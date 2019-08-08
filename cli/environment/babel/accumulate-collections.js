@@ -20,28 +20,30 @@ function getReducersAndSagas() {
     filepath: getRelative(absolutePath),
   })
 
-  fs.readdirSync(COLLECTIONS_DIR, { withFileTypes: true }).forEach(item => {
-    if (!item.isDirectory()) {
-      return false
-    }
+  if (fs.existsSync(COLLECTIONS_DIR)) {
+    fs.readdirSync(COLLECTIONS_DIR, { withFileTypes: true }).forEach(item => {
+      if (!item.isDirectory()) {
+        return false
+      }
 
-    const reducerPath = path.resolve(
-      COLLECTIONS_DIR,
-      item.name,
-      FILENAME_REDUCER,
-    )
-    const sagaPath = path.resolve(COLLECTIONS_DIR, item.name, FILENAME_SAGA)
+      const reducerPath = path.resolve(
+        COLLECTIONS_DIR,
+        item.name,
+        FILENAME_REDUCER,
+      )
+      const sagaPath = path.resolve(COLLECTIONS_DIR, item.name, FILENAME_SAGA)
 
-    if (fs.existsSync(reducerPath)) {
-      reducers.push(buildItem(item.name, reducerPath))
-    }
+      if (fs.existsSync(reducerPath)) {
+        reducers.push(buildItem(item.name, reducerPath))
+      }
 
-    if (fs.existsSync(sagaPath)) {
-      sagas.push(buildItem(item.name, sagaPath))
-    }
+      if (fs.existsSync(sagaPath)) {
+        sagas.push(buildItem(item.name, sagaPath))
+      }
 
-    return null
-  })
+      return null
+    })
+  }
 
   return { sagas, reducers }
 }
