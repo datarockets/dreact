@@ -1,6 +1,7 @@
-import { configure } from 'enzyme'
-import Adapter from 'enzyme-adapter-react-16'
+function createWrapperForAppInjectionToMimicRealWorld() {
+  const rootElement = document.createElement('div')
+  rootElement.id = 'root'
+  document.body.appendChild(rootElement)
+}
 
-import 'jest-enzyme'
-
-configure({ adapter: new Adapter() })
+createWrapperForAppInjectionToMimicRealWorld()

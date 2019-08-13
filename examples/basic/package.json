@@ -15,7 +15,7 @@
     "jest-enzyme": "^7.0.2"
   },
   "eslintConfig": {
-    "extends": "./node_modules/dreact-cli/environment/eslint.config.js"
+    "extends": "./node_modules/dreact/cli/environment/eslint.config.js"
   },
   "browserslist": {
     "production": [

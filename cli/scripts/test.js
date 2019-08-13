@@ -28,14 +28,18 @@ module.exports = function(argv) {
   const appDirectory = fs.realpathSync(process.cwd())
   const resolveApp = relativePath => path.resolve(appDirectory, relativePath)
 
-  const setupTestsFile = fs.existsSync(resolveApp('config/jest.setup.js'))
-    ? ['<rootDir>/config/jest.setup.js']
-    : []
+  const setupTestsFiles = [
+    '<rootDir>/node_modules/dreact/cli/environment/jest/setup.js',
+  ]
+
+  if (fs.existsSync(resolveApp('config/jest.setup.js'))) {
+    setupTestsFiles.push('<rootDir>/config/jest.setup.js')
+  }
 
   const config = {
     collectCoverageFrom: ['src/**/*.{js,jsx}'],
     setupFiles: [require.resolve('react-app-polyfill/jsdom')],
-    setupFilesAfterEnv: setupTestsFile,
+    setupFilesAfterEnv: setupTestsFiles,
     testMatch: [
       '<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}',
       '<rootDir>/src/**/*.{spec,test}.{js,jsx,ts,tsx}',
