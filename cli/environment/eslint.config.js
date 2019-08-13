@@ -1,3 +1,6 @@
+const fs = require('fs')
+const path = require('path')
+
 ;(function registerLocalPlugin(Module) {
   const options = {
     paths: require.resolve.paths(__dirname),
@@ -31,9 +34,20 @@
 
 const aliases = require('./aliases')
 
+const pathToPrettier = path.resolve(
+  process.cwd(),
+  'node_modules',
+  '.bin',
+  'prettier',
+)
+
 module.exports = {
   plugins: ['react-pug', 'local', 'import-helpers'],
-  extends: ['datarockets', 'plugin:react-pug/all'],
+  extends: [
+    'datarockets',
+    'plugin:react-pug/all',
+    fs.existsSync(pathToPrettier) && 'prettier',
+  ].filter(Boolean),
   globals: {
     React: true,
     styled: true,
