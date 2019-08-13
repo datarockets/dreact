@@ -50,12 +50,13 @@ module.exports = function(argv) {
         '<rootDir>/node_modules/react-scripts/config/jest/fileTransform.js',
     },
     transformIgnorePatterns: [
-      '[/\\\\]node_modules[/\\\\].+\\.(js|jsx|ts|tsx)$',
+      '\\/node_modules\\/(?!dreact\\/).+\\.(js|jsx)$',
       '^.+\\.module\\.(css|sass|scss)$',
     ],
     modulePaths: [],
     moduleNameMapper: {
       '^.+\\.module\\.(css|sass|scss)$': 'identity-obj-proxy',
+      '^react$': '<rootDir>/node_modules/react',
     },
     moduleFileExtensions: ['web.js', 'js', 'json', 'node'],
     watchPlugins: [
