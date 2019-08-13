@@ -115,26 +115,7 @@ module.exports = {
     ],
 
     // Turned off because we want different style-guide
-    'import/no-cycle': 'off',
-    'no-param-reassign': 'off',
     'prefer-destructuring': 'off',
-    'react/forbid-prop-types': 'off',
-    'object-curly-newline': [
-      'error',
-      {
-        ObjectExpression: {
-          minProperties: 3,
-          multiline: true,
-          consistent: true,
-        },
-        ObjectPattern: {
-          minProperties: 6,
-          multiline: true,
-          consistent: true,
-        },
-      },
-    ],
-    'class-methods-use-this': 'off',
 
     // Turned off temporary because of pugjs
     'react/prop-types': 'off',
