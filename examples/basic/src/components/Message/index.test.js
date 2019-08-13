@@ -1,4 +1,4 @@
-import { shallow } from 'enzyme'
+import { shallow } from 'dreact/helper-test'
 import { Provider } from 'dreact/helper-store'
 
 import Component from '.'
