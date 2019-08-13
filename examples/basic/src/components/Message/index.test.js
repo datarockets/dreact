@@ -1,10 +1,19 @@
 import { shallow } from 'enzyme'
+import { Provider } from 'dreact/helper-store'
 
 import Component from '.'
 
+const fakeStore = {
+  getState() {
+    return {}
+  },
+  subscribe() {},
+  dispatch() {},
+}
+
 it('hello', () => {
   const text = 'Test sentence $$'
-  const result = shallow(pug`Component= text`)
+  const result = shallow(pug`Provider(store=fakeStore): Component= text`)
 
-  expect(result).toIncludeText(text)
+  expect(result).toExist()
 })

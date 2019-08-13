@@ -4,7 +4,7 @@ const Test = styled.div`
   color: red;
 `
 
-function Component(props) {
+function Message(props) {
   const trigger = useTriggerSayHello()
 
   return pug`
@@ -18,8 +18,8 @@ function Component(props) {
   `
 }
 
-Component.propTypes = {
+Message.propTypes = {
   children: () => undefined,
 }
 
-export default Component
+export default Message
