@@ -2,8 +2,7 @@
 
 const message = require('../utils/message')
 
-const argv = process.argv.slice(2)
-const scriptName = argv[0]
+const [scriptName, ...argv] = process.argv.slice(2)
 
 require('../utils/pointOurWebpackConfig')
 

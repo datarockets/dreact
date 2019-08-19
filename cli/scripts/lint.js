@@ -6,7 +6,7 @@ const stylelintCli = require('stylelint/lib/cli')
 const getConfigPath = name => path.resolve(__dirname, '..', 'environment', name)
 
 module.exports = function(argv) {
-  if (argv[1] === 'js') {
+  if (argv[0] === 'js') {
     const configPath = getConfigPath('eslint.config.js')
     process.exitCode = eslintCli.execute([
       'eslint',
@@ -20,7 +20,7 @@ module.exports = function(argv) {
     return
   }
 
-  if (argv[1] === 'styles') {
+  if (argv[0] === 'styles') {
     const configPath = getConfigPath('stylelint.config.js')
     process.exitCode = stylelintCli([
       './src/**/*.js',
