@@ -1,4 +1,4 @@
-const { Minimatch } = require('minimatch') // eslint-disable-line import/no-extraneous-dependencies
+const { Minimatch } = require('minimatch')
 
 const isIgnored = new Minimatch(
   '**/src/{components/UI/**,**/__tests__/**,**/assets/**,**/*.test.js,**/!(index.js)}',

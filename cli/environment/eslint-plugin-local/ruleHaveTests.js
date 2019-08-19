@@ -1,8 +1,8 @@
 const fs = require('fs')
 const path = require('path')
 
-const findUp = require('find-up') // eslint-disable-line import/no-extraneous-dependencies
-const { Minimatch } = require('minimatch') // eslint-disable-line import/no-extraneous-dependencies
+const findUp = require('find-up')
+const { Minimatch } = require('minimatch')
 
 function getRelatedTestFiles(filepath) {
   const dir = path.dirname(filepath)
@@ -53,8 +53,8 @@ function getRelatedTestFiles(filepath) {
 module.exports = {
   create(context) {
     const options = {
-      include: '',
-      ignore: '',
+      include: '**/src/{pages,containers,components,forms,lib}/**',
+      ignore: '**/{atoms.js,book.js,assets/*.js}',
       ...context.options[0],
     }
 
