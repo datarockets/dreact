@@ -4676,8 +4676,10 @@ dotenv@^8.0.0:
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-8.0.0.tgz#ed310c165b4e8a97bb745b0a9d99c31bda566440"
   integrity sha512-30xVGqjLjiUOArT4+M5q9sYdvuR4riM6yK9wMcas9Vbp6zZa+ocC9dp6QoftuhTPhFAiLK/0C5Ni2nou/Bk8lg==
 
-"dreact@file:../..":
-  version "0.1.3"
+dreact@*:
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/dreact/-/dreact-0.1.5.tgz#b1580fd3310ad9ad64026b6ba0467fa0652dd9fb"
+  integrity sha512-mxM7gzkOQ/A+NviNykL5oVxpS66rq5MX4m0LZ8oFle37eaHkpP0KzTatyiRDsQFakK4HhCcwBo0v8LhLyqPxqQ==
   dependencies:
     "@babel/core" "^7.5.5"
     "@frontrockets/redux-abstract-action" "^0.0.1"

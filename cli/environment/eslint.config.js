@@ -56,6 +56,7 @@ module.exports = {
     Action: true,
   },
   rules: {
+    'local/component-function': 'error',
     'local/component-names': 'error',
     'local/require-aliases': 'error',
     'local/use-atoms': 'error',
