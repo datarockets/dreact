@@ -56,6 +56,7 @@ module.exports = {
     Action: true,
   },
   rules: {
+    'local/collection-named-exports': 'error',
     'local/component-function': 'error',
     'local/component-names': 'error',
     'local/have-tests': 'error',
