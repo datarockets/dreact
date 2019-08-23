@@ -3,7 +3,10 @@ const path = require('path')
 
 ;(function registerLocalPlugin(Module) {
   const options = {
-    paths: require.resolve.paths(__dirname),
+    paths: [
+      ...require.resolve.paths(__dirname),
+      path.resolve(process.cwd(), 'node_modules'),
+    ],
   }
 
   if (!global.isModulePatchedForEslint) {
