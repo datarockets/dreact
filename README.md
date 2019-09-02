@@ -46,6 +46,10 @@ The app is based on [react-scripts](https://github.com/facebook/create-react-app
 
   Specify a decorator for storybook. Usually used to add some wrappers around each story.
 
+- #### `/config/eslint.config.js`
+
+  Modify our internal eslint config to conform your needs.
+
 - #### `/config/jest.setup.js`
 
   Setup jest to run tests on your terms.
