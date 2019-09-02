@@ -1,5 +1,6 @@
 const fs = require('fs')
 const path = require('path')
+const _ = require('lodash')
 
 ;(function registerLocalPlugin(Module) {
   const options = {
@@ -44,7 +45,13 @@ const pathToPrettier = path.resolve(
   'prettier',
 )
 
-module.exports = {
+const pathToLocalConfig = path.resolve(
+  process.cwd(),
+  'config',
+  'eslint.config.js',
+)
+
+const internalConfig = {
   plugins: ['react-pug', 'local', 'import-helpers'],
   extends: [
     'datarockets',
@@ -137,3 +144,8 @@ module.exports = {
     },
   },
 }
+
+module.exports = _.merge(
+  internalConfig,
+  fs.existsSync(pathToLocalConfig) && require(pathToLocalConfig),
+)
