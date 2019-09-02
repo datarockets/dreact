@@ -8,6 +8,8 @@ const FontFamily = createGlobalStyle`
   }
 `
 
+/* eslint-disable react-pug/prop-types */
+
 function WithFont(props) {
   return pug`
     FontFamily
@@ -15,7 +17,11 @@ function WithFont(props) {
   `
 }
 
-export default storyFn => pug`
-  WithFont
-    = storyFn()
-`
+function StoryItemWrapper(storyFn) {
+  return pug`
+    WithFont
+      = storyFn()
+  `
+}
+
+export default StoryItemWrapper
