@@ -10,12 +10,13 @@ module.exports = function(argv) {
     const configPath = getConfigPath('eslint.config.js')
     process.exitCode = eslintCli.execute([
       'eslint',
-      './config',
-      './src',
       '--no-eslintrc',
       '--config',
       configPath,
-      ...argv.slice(2),
+      '--ignore-path',
+      path.resolve(process.cwd(), '.gitignore'),
+      ...argv.slice(1),
+      './',
     ])
     return
   }
@@ -23,10 +24,10 @@ module.exports = function(argv) {
   if (argv[0] === 'styles') {
     const configPath = getConfigPath('stylelint.config.js')
     process.exitCode = stylelintCli([
-      './src/**/*.js',
       '--config',
       configPath,
-      ...argv.slice(2),
+      ...argv.slice(1),
+      './src/**/*.js',
     ])
     return
   }
