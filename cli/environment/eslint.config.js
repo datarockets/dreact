@@ -143,6 +143,7 @@ const internalConfig = {
       },
     },
   },
+  reportUnusedDisableDirectives: true,
 }
 
 module.exports = _.merge(

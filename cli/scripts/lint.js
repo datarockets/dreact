@@ -13,6 +13,8 @@ module.exports = function(argv) {
       '--no-eslintrc',
       '--config',
       configPath,
+      '--ignore-path',
+      path.resolve(process.cwd(), '.gitignore'),
       ...argv.slice(1),
       './',
     ])
