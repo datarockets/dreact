@@ -111,6 +111,10 @@ const internalConfig = {
         requireSpaceAfterCodeOperator: true,
         requireStrictEqualityOperators: true,
         validateAttributeQuoteMarks: '"',
+        validateAttributeSeparator: {
+          separator: ' ',
+          multiLineSeparator: '\n  ',
+        },
         validateIndentation: 2,
       },
     ],
