@@ -105,6 +105,7 @@ const internalConfig = {
       {
         disallowClassLiteralsBeforeIdLiterals: true,
         disallowHtmlText: true,
+        disallowMultipleLineBreaks: true,
         disallowTrailingSpaces: true,
         requireClassLiteralsBeforeAttributes: true,
         requireIdLiteralsBeforeAttributes: true,
