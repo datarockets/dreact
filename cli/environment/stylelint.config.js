@@ -1,3 +1,6 @@
+const fs = require('fs')
+const path = require('path')
+
 ;(function registerLocalPlugin(Module) {
   const options = {
     paths: require.resolve.paths(__dirname),
@@ -25,12 +28,20 @@
   }
 })(require('module'))
 
+const pathToPrettier = path.resolve(
+  process.cwd(),
+  'node_modules',
+  '.bin',
+  'prettier',
+)
+
 module.exports = {
   processors: ['stylelint-processor-styled-components'],
   extends: [
     'stylelint-config-datarockets',
     'stylelint-config-styled-components',
-  ],
+    fs.existsSync(pathToPrettier) && 'stylelint-config-prettier',
+  ].filter(Boolean),
   rules: {
     indentation: 2,
   },

@@ -105,12 +105,17 @@ const internalConfig = {
       {
         disallowClassLiteralsBeforeIdLiterals: true,
         disallowHtmlText: true,
+        disallowMultipleLineBreaks: true,
         disallowTrailingSpaces: true,
         requireClassLiteralsBeforeAttributes: true,
         requireIdLiteralsBeforeAttributes: true,
         requireSpaceAfterCodeOperator: true,
         requireStrictEqualityOperators: true,
         validateAttributeQuoteMarks: '"',
+        validateAttributeSeparator: {
+          separator: ' ',
+          multiLineSeparator: '\n  ',
+        },
         validateIndentation: 2,
       },
     ],
