@@ -35,6 +35,10 @@ The app is based on [react-scripts](https://github.com/facebook/create-react-app
 - #### Simple creating action creators
 
   All `new Action()` constructions inside `/src/collections/*/actions.js` will be transformed into `createAction` exported by `dreact/helper-actions`.
+  
+- #### Linting
+  
+  We use eslint and stylelint to lint our files. Also we applied several custom rules there to reach our needs: we request named exports for collection stuff, we request using normal functions to define components, we require tests for each file in the app. [Take a look at all rules](./cli/environment/eslint-plugin-local).
 
 ## Configuration
 
