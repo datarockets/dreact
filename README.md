@@ -8,7 +8,7 @@ yarn add dreact
 
 ## What?
 
-Maintain projects easier by applying reusage of everything.
+Maintain projects easier by applying reusage of everything. It's based on [react-scripts (create react app)](https://github.com/facebook/create-react-app) so you can use all of its features. We provide redux and styled-components configuration out of the box.
 
 ## Environment
 
@@ -49,6 +49,85 @@ The app is based on [react-scripts](https://github.com/facebook/create-react-app
 - #### Automatic imports
 
   We import React and styled components where they are used automatically.
+  
+## How to organize the project
+
+The basic structure looks like this:
+
+```
+/config — to configure the project
+/public
+  index.html
+  
+/src
+  /collections
+    ...
+    store.js
+  /components
+  /containers
+  /forms
+  /lib
+  /pages
+  /services
+  /UI
+  
+  AppRouter.js
+  index.js
+  routes.js
+```
+
+## How to create and use store
+
+We create and export store in `src/collections/store.js`:
+
+```js
+import makeStoreConfigurer from 'dreact/helper-store'
+
+export default makeStoreConfigurer()
+```
+
+Everything will be pulled from collections and added automatically. However you might need to extend it, so take a look at [`dreact/helper-store` documentation](./helper-store).
+
+*Note: When we create or remove collectons we should restart the app.*
+
+To connect the store with the app we need to modify `src/index.js`:
+
+```js
+import ReactDOM from 'react-dom'
+import { Provider } from 'dreact/helper-store'
+
+import AppRouter from 'src/AppRouter'
+
+import configureStore from 'src/collections/store'
+
+const store = configureStore()
+
+ReactDOM.render(
+  pug`
+    Provider(store=store)
+      AppRouter
+  `,
+  document.getElementById('root'),
+)
+```
+
+## How to write tests
+
+There are no instructions. Earlier you've been told that we use enzyme for testing, but we built an enhancements on top of it, so to get an access to enzyme we should use `dreact/helper-test`.
+
+Your test may look like this:
+
+```js
+import { shallow } from 'dreact/helper-test'
+
+import Component from '.'
+
+it('is rendered', () => {
+  shallow(pug`Component Hello World`)
+})
+```
+
+Take a look at [`dreact/helper-test` documentation](./helper-test).
 
 ## Configuration
 
