@@ -59,6 +59,13 @@ The app is based on [react-scripts](https://github.com/facebook/create-react-app
 - #### `/config/book.setup-item.js`
 
   Specify a decorator for storybook. Usually used to add some wrappers around each story.
+  
+  ```js
+  export default storyFn = pug`
+    p I'll appear before each story
+    = storyFn()
+  `
+  ```
 
 - #### `/config/eslint.config.js`
 
