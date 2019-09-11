@@ -10,6 +10,15 @@ yarn add dreact
 
 Maintain projects easier by applying reusage of everything. It's based on [react-scripts (create react app)](https://github.com/facebook/create-react-app) so you can use all of its features. We provide redux and styled-components configuration out of the box.
 
+Content:
+- [Environment](#environment)
+- [How to organize the project](#how-to-organize-the-project)
+- [How to create and use store](#how-to-create-and-use-store)
+- [How to write tests](#how-to-write-tests)
+- [Configuration](#configuration)
+- [CLI](#cli)
+- [Deployment](#deployment)
+
 ## Environment
 
 The app is based on [react-scripts](https://github.com/facebook/create-react-app). And book is based on [storybook](https://github.com/storybookjs/storybook).
