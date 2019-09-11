@@ -28,7 +28,7 @@ The app is based on [react-scripts](https://github.com/facebook/create-react-app
   
 - #### Configured tests
   
-  We use [Jest](https://jestjs.io) + [Enzyme](https://airbnb.io/enzyme/). To make test writiing easier, we configured it:
+  We use [Jest](https://jestjs.io) + [Enzyme](https://airbnb.io/enzyme/). To make test writing easier, we configured it:
   
   - The execcution of console.error is forbidden. This is mostly to prevent mismatching of prop types.
   - Extended functioinality with [jest-enzyme](https://github.com/FormidableLabs/enzyme-matchers/tree/master/packages/jest-enzyme#assertions).
@@ -45,6 +45,10 @@ The app is based on [react-scripts](https://github.com/facebook/create-react-app
 - #### Linting
   
   We use eslint and stylelint to lint our files. Also we applied several custom rules there to reach our needs: we request named exports for collection stuff, we request using normal functions to define components, we require tests for each file in the app. [Take a look at all rules](./cli/environment/eslint-plugin-local).
+  
+- #### Automatic imports
+
+  We import React and styled components where they are used automatically.
 
 ## Configuration
 
