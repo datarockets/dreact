@@ -14,6 +14,7 @@ Content:
 - [Environment](#environment)
 - [How to organize the project](#how-to-organize-the-project)
 - [How to create and use store](#how-to-create-and-use-store)
+- [How to write sagas and containers related to store](#how-to-write-sagas-and-containers-related-to-store)
 - [How to write tests](#how-to-write-tests)
 - [Configuration](#configuration)
 - [CLI](#cli)
@@ -118,6 +119,14 @@ ReactDOM.render(
   `,
   document.getElementById('root'),
 )
+```
+
+## How to write sagas and containers related to store
+
+So basically we need saga effects and some hooks to maintain everything related to store. For that we have [`dreact/helper-store`](./helper-store).
+
+```js
+import { effects, useDispatch, useSelector } from 'dreact/helper-store'
 ```
 
 ## How to write tests
