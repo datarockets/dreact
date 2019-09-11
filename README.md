@@ -25,8 +25,14 @@ The app is based on [react-scripts](https://github.com/facebook/create-react-app
 - #### Pass variables from `.env.local`
 
   I recommend to maintain `.env.sample` to always contain variables necessary for development and sync it via `dreact env-sync` command.
-
-- #### Attribute `TESTID` for easier selecting nodes in tests
+  
+- #### Configured tests
+  
+  We use [Jest](https://jestjs.io) + [Enzyme](https://airbnb.io/enzyme/). To make test writiing easier, we configured it:
+  
+  - The execcution of console.error is forbidden. This is mostly to prevent mismatching of prop types.
+  - Extended functioinality with [jest-enzyme](https://github.com/FormidableLabs/enzyme-matchers/tree/master/packages/jest-enzyme#assertions).
+  - Element's attribute `TESTID` in tests for easier selecting nodes n tests.
 
 - #### Addons for storybook
 
