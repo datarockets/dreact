@@ -60,6 +60,7 @@ module.exports = function(argv) {
     modulePaths: [],
     moduleNameMapper: {
       '^.+\\.module\\.(css|sass|scss)$': 'identity-obj-proxy',
+      '^src\\/(.*)$': '<rootDir>/src/$1',
       '^react$': '<rootDir>/node_modules/react',
     },
     moduleFileExtensions: ['web.js', 'js', 'json', 'node'],
