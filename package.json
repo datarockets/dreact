@@ -14,6 +14,7 @@
   "dependencies": {
     "@babel/core": "^7.5.5",
     "@frontrockets/redux-abstract-action": "^0.0.1",
+    "@sentry/browser": "^5.6.3",
     "@storybook/addon-actions": "^5.1.11",
     "@storybook/addon-knobs": "^5.1.11",
     "@storybook/addon-storysource": "^5.1.11",
