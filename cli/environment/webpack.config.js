@@ -1,4 +1,5 @@
 const path = require('path')
+const webpack = require('webpack')
 const buildGeneralConfig = require('react-scripts/config/webpack.config')
 
 const getCacheIdentifier = require('./webpack/getCacheIdentifier')
@@ -8,6 +9,32 @@ const getClientDependency = module =>
 
 module.exports = (...args) => {
   const config = buildGeneralConfig(...args)
+
+  config.entry = config.entry.map(item => {
+    if (item.endsWith('/src/index.js')) {
+      return path.resolve(
+        process.cwd(),
+        'node_modules',
+        'dreact',
+        'cli',
+        'environment',
+        'webpack',
+        'entry.js',
+      )
+    }
+
+    return item
+  })
+
+  config.plugins.push(
+    new webpack.DefinePlugin({
+      __PROJECT_ENTRY_PATH: `"${path.resolve(
+        process.cwd(),
+        'src',
+        'index.js',
+      )}"`,
+    }),
+  )
 
   // Add custom babel config
   config.module.rules[2].oneOf[1].options.extends = path.resolve(
