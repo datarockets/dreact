@@ -1,38 +1,9 @@
-import * as Sentry from '@sentry/browser'
+import errorCatcher from './errorCatcher'
 
-class ErrorCatcher {
-  constructor() {
-    this.provider = Sentry
-    this.params = {}
-  }
-
-  configure(params = {}) {
-    this.params = {
-      source: params.source,
-      isDebug: params.isDebug,
-      environment: params.environment,
-      ...this.params,
-    }
-
-    return this
-  }
-
-  start() {
-    if (this.params.source) {
-      this._init()
-    }
-
-    return this
-  }
-
-  _init() {
-    this.provider.init({
-      dsn: this.params.source,
-      debug: this.params.isDebug,
-      environment: this.params.environment,
-      attachStacktrace: true,
-    })
-  }
-}
-
-export default new ErrorCatcher()
+export default errorCatcher
+  .configure({
+    source: process.env.REACT_APP_SENTRY_DSN,
+    isDebug: process.env.NODE_ENV === 'development',
+    environment: process.env.REACT_APP_SENTRY_ENV,
+  })
+  .start()
