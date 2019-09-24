@@ -6,6 +6,10 @@ class ErrorCatcher {
     this.params = {}
   }
 
+  get isReady() {
+    return this.params.source && this.params.environment
+  }
+
   configure(params = {}) {
     this.params = {
       source: params.source,
@@ -18,7 +22,7 @@ class ErrorCatcher {
   }
 
   start() {
-    if (this.params.source) {
+    if (this.isReady) {
       this._init()
     }
 
@@ -26,7 +30,7 @@ class ErrorCatcher {
   }
 
   report(error, info) {
-    if (this.params.source) {
+    if (this.isReady) {
       this._handleReport(error, info)
     }
 
