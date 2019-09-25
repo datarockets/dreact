@@ -2,6 +2,8 @@ import { createStore, applyMiddleware, compose, combineReducers } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 import * as sagaEffects from 'redux-saga/effects'
 
+import errorCatcher from '../helper-sentry'
+
 function makeStoreConfigurer(params) {
   if (process.env.NODE_ENV !== 'production') {
     if (!params.reducers) {
@@ -34,7 +36,9 @@ function makeStoreConfigurer(params) {
   }
 
   return (initialState = params.initialState) => {
-    const sagaMiddleware = createSagaMiddleware()
+    const sagaMiddleware = createSagaMiddleware({
+      onError: (error, info) => errorCatcher.report(error, info),
+    })
 
     const enhancer = composeEnhancers(applyMiddleware(sagaMiddleware))
 
