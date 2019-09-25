@@ -4,10 +4,10 @@
   "private": true,
   "dependencies": {
     "dreact": "*",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "react-redux": "^7.1.0",
-    "styled-components": "^4.3.2"
+    "react": "^16",
+    "react-dom": "^16",
+    "react-redux": "^7",
+    "styled-components": "^4"
   },
   "eslintConfig": {
     "extends": "./node_modules/dreact/cli/environment/eslint.config.js"
