@@ -7,9 +7,7 @@ const getCacheIdentifier = require('./webpack/getCacheIdentifier')
 const getClientDependency = module =>
   path.resolve(process.cwd(), 'node_modules', module)
 
-module.exports = (...args) => {
-  const config = buildGeneralConfig(...args)
-
+function addCustomEntryPoint(config) {
   config.entry = config.entry.map(item => {
     if (item.endsWith('/src/index.js')) {
       return path.resolve(
@@ -35,22 +33,26 @@ module.exports = (...args) => {
       )}"`,
     }),
   )
+}
 
-  // Add custom babel config
+function addCustomBabelConfig(config) {
   config.module.rules[2].oneOf[1].options.extends = path.resolve(
     __dirname,
     'babel.config.js',
   )
   delete config.module.rules[2].oneOf[1].options.presets
+}
 
-  // Boost cache when files in src/collections/changed
+function addCacheBoosterWhenCollectionsChanged(config) {
   config.module.rules[2].oneOf[1].options.cacheIdentifier += ':'
   config.module.rules[2].oneOf[1].options.cacheIdentifier += getCacheIdentifier()
+}
 
-  // Remove eslint before building
+function removeEslintBeforeBuilding(config) {
   config.module.rules.splice(1, 1)
+}
 
-  // Make sure we resolve react dependency properly
+function enhanceDependencyResolver(config) {
   config.resolve = {
     ...config.resolve,
     alias: {
@@ -58,6 +60,16 @@ module.exports = (...args) => {
       react: getClientDependency('react'),
     },
   }
+}
+
+module.exports = (...args) => {
+  const config = buildGeneralConfig(...args)
+
+  addCustomEntryPoint(config)
+  addCustomBabelConfig(config)
+  addCacheBoosterWhenCollectionsChanged(config)
+  removeEslintBeforeBuilding(config)
+  enhanceDependencyResolver(config)
 
   return config
 }
