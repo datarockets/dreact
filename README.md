@@ -17,6 +17,7 @@ Content:
 - [How to create and use store](#how-to-create-and-use-store)
 - [How to write sagas and containers related to store](#how-to-write-sagas-and-containers-related-to-store)
 - [How to write tests](#how-to-write-tests)
+- [How to integrate with Sentry](#how-to-integrate-with-sentry)
 - [Configuration](#configuration)
 - [CLI](#cli)
 - [Deployment](#deployment)
@@ -147,6 +148,10 @@ it('is rendered', () => {
 ```
 
 Take a look at [`dreact/helper-test` documentation](./helper-test).
+
+## How to integrate with [Sentry](https://sentry.io)
+
+To implement the integration with sentry we need to set `REACT_APP_SENTRY_DSN`, `REACT_APP_SENTRY_ENV` environment variables. Once they are set, it will start sending reports to sentry.
 
 ## Configuration
 
