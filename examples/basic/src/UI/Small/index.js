@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import styled from 'styled-components'
 
 const Test = styled.div`
@@ -5,6 +6,10 @@ const Test = styled.div`
 `
 
 function UISmall(props) {
+  useEffect(() => {
+    props.callback()
+  }, [])
+
   return pug`
     Test
       = props.children
@@ -13,6 +18,7 @@ function UISmall(props) {
 
 UISmall.propTypes = {
   children: () => undefined,
+  callback: () => undefined,
 }
 
 export default UISmall

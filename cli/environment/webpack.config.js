@@ -58,6 +58,8 @@ function enhanceDependencyResolver(config) {
     alias: {
       ...config.resolve.alias,
       react: getClientDependency('react'),
+      'react-router-dom': getClientDependency('react-router-dom'),
+      'styled-components': getClientDependency('styled-components'),
     },
   }
 }
