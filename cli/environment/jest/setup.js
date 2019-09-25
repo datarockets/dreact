@@ -5,4 +5,6 @@ import 'jest-enzyme'
 
 import './failWhenConsoleMessage'
 
+import './mockUseEffectForShallow'
+
 configure({ adapter: new Adapter() })
