@@ -1,17 +1,21 @@
 let isConsoleWarningOrError = false
 
-beforeEach(() => {
-  isConsoleWarningOrError = false
+beforeAll(() => {
   const originalError = global.console.error.bind(global.console)
   jest.spyOn(global.console, 'error').mockImplementation((...args) => {
     isConsoleWarningOrError = true
     originalError(...args)
   })
+
   const originalWarn = global.console.warn.bind(global.console)
   jest.spyOn(global.console, 'warn').mockImplementation((...args) => {
     isConsoleWarningOrError = true
     originalWarn(...args)
   })
+})
+
+beforeEach(() => {
+  isConsoleWarningOrError = false
 })
 
 afterEach(() => {
