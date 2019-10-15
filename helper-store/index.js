@@ -1,5 +1,5 @@
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux'
-import createSagaMiddleware from 'redux-saga'
+import createSagaMiddleware, { END } from 'redux-saga'
 import * as sagaEffects from 'redux-saga/effects'
 
 import errorCatcher from '../helper-sentry'
@@ -31,8 +31,15 @@ function makeStoreConfigurer(params) {
     ? params.reducerMiddleware(appReducer)
     : appReducer
 
-  function* rootSaga() {
+  function* rootSaga(run) {
     yield sagaEffects.all(params.sagas.map(saga => sagaEffects.call(saga)))
+    yield sagaEffects.take(RESTART.type, restartSaga, run)
+  }
+
+  function* restartSaga(run) {
+    yield sagaEffects.put(END)
+
+    run(rootSaga, run)
   }
 
   return (initialState = params.initialState) => {
@@ -44,7 +51,7 @@ function makeStoreConfigurer(params) {
 
     const store = createStore(rootReducer, initialState, enhancer)
 
-    sagaMiddleware.run(rootSaga)
+    sagaMiddleware.run(rootSaga, sagaMiddleware.run)
 
     return store
   }
@@ -53,5 +60,9 @@ function makeStoreConfigurer(params) {
 export { useDispatch, useSelector, Provider } from 'react-redux'
 
 export const effects = sagaEffects
+
+export const RESTART = {
+  type: '@@redux-saga/CHANNEL_RESTART',
+}
 
 export default makeStoreConfigurer
