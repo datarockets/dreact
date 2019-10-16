@@ -1,5 +1,5 @@
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux'
-import createSagaMiddleware, { END } from 'redux-saga'
+import createSagaMiddleware from 'redux-saga'
 import * as sagaEffects from 'redux-saga/effects'
 
 import errorCatcher from '../helper-sentry'
