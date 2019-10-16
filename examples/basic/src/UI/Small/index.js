@@ -21,4 +21,8 @@ UISmall.propTypes = {
   callback: () => undefined,
 }
 
+UISmall.defaultProps = {
+  callback: () => console.log('Hello After Mount'),
+}
+
 export default UISmall
