@@ -18,7 +18,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@master
         with:
-          version: ${{ matrix.node }}
+          node-version: ${{ matrix.node }}
 
       - name: Install Dependencies
         run: npm install
