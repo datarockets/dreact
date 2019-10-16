@@ -31,8 +31,15 @@ function makeStoreConfigurer(params) {
     ? params.reducerMiddleware(appReducer)
     : appReducer
 
-  function* rootSaga() {
-    yield sagaEffects.all(params.sagas.map(saga => sagaEffects.call(saga)))
+  function* rootSaga(run) {
+    const task = yield sagaEffects.fork(function*() {
+      yield sagaEffects.all(params.sagas.map(saga => sagaEffects.call(saga)))
+    })
+
+    yield sagaEffects.take(RESTART.type)
+    yield sagaEffects.cancel(task)
+
+    run(rootSaga, run)
   }
 
   return (initialState = params.initialState) => {
@@ -44,7 +51,7 @@ function makeStoreConfigurer(params) {
 
     const store = createStore(rootReducer, initialState, enhancer)
 
-    sagaMiddleware.run(rootSaga)
+    sagaMiddleware.run(rootSaga, sagaMiddleware.run)
 
     return store
   }
@@ -53,5 +60,9 @@ function makeStoreConfigurer(params) {
 export { useDispatch, useSelector, Provider } from 'react-redux'
 
 export const effects = sagaEffects
+
+export const RESTART = {
+  type: '@@redux-saga/ROOT_RESTART',
+}
 
 export default makeStoreConfigurer
