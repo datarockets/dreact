@@ -80,6 +80,18 @@ Organize store for redux with redux-saga.
 
   It's an alias of used [`redux-saga/effects`](https://redux-saga.js.org/docs/api/) inside.
 
+- #### `RESTART`
+
+  It's an action that can be dispatched in store. It's been designed to restart sagas (stop everything and run again).
+
+  ```jsx
+  import { RESTART, effects } from 'dreact/helper-store'
+
+  function* someSaga() {
+    yield effects.put(RESTART)
+  }
+  ```
+
 ### From [`react-redux`](https://github.com/reduxjs/react-redux)
 
 - #### `useDispatch`
