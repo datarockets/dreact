@@ -32,9 +32,12 @@ function makeStoreConfigurer(params) {
     : appReducer
 
   function* rootSaga(run) {
-    yield sagaEffects.all(params.sagas.map(saga => sagaEffects.call(saga)))
+    const task = yield sagaEffects.fork(function*() {
+      yield sagaEffects.all(params.sagas.map(saga => sagaEffects.call(saga)))
+    })
+
     yield sagaEffects.take(RESTART.type)
-    yield sagaEffects.put(END)
+    yield sagaEffects.cancel(task)
 
     run(rootSaga, run)
   }
@@ -59,7 +62,7 @@ export { useDispatch, useSelector, Provider } from 'react-redux'
 export const effects = sagaEffects
 
 export const RESTART = {
-  type: '@@redux-saga/CHANNEL_RESTART',
+  type: '@@redux-saga/ROOT_RESTART',
 }
 
 export default makeStoreConfigurer
