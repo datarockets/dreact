@@ -33,10 +33,7 @@ function makeStoreConfigurer(params) {
 
   function* rootSaga(run) {
     yield sagaEffects.all(params.sagas.map(saga => sagaEffects.call(saga)))
-    yield sagaEffects.take(RESTART.type, restartSaga, run)
-  }
-
-  function* restartSaga(run) {
+    yield sagaEffects.take(RESTART.type)
     yield sagaEffects.put(END)
 
     run(rootSaga, run)
