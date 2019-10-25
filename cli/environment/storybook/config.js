@@ -3,12 +3,6 @@ import path from 'path'
 import { configure, addDecorator } from '@storybook/react'
 import { withKnobs } from '@storybook/addon-knobs'
 
-const pathToSetupItem = path.resolve(
-  process.cwd(),
-  'config',
-  'book.setup-item.js',
-)
-
 addDecorator(withKnobs)
 
 try {
