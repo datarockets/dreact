@@ -14,7 +14,7 @@ function loadStories() {
   const req = require.context(
     'process.cwd/src/UI',
     true,
-    /^\.\/(?!.*node_modules).+\/book.js$/,
+    /^\.\/(?!.*node_modules).+\/book\.js$/,
   )
   req.keys().forEach(filename => req(filename))
 }
