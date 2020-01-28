@@ -1,17 +1,20 @@
 const path = require('path')
 
-const getClientDependency = module =>
-  path.resolve(process.cwd(), 'node_modules', module)
+const CWD = process.cwd()
 
-module.exports = ({ config }) => {
+const getClientDependency = module => path.resolve(CWD, 'node_modules', module)
+
+function addAliases(config) {
   config.resolve.alias = {
     ...config.resolve.alias,
-    'process.cwd': path.resolve(process.cwd()),
+    'process.cwd': path.resolve(CWD),
     react: getClientDependency('react'),
     'react-router-dom': getClientDependency('react-router-dom'),
     'styled-components': getClientDependency('styled-components'),
   }
+}
 
+function addSourceLoader(config) {
   config.module.rules.push({
     test: /\/book\.js$/,
     loaders: [
@@ -26,6 +29,25 @@ module.exports = ({ config }) => {
     ],
     enforce: 'pre',
   })
+}
+
+function allowImportingBookSetupItem(config) {
+  const pathBookSetupItem = path.resolve(CWD, 'config', 'book.setup-item.js')
+
+  config.resolve.plugins[1].allowedFiles.add(pathBookSetupItem)
+
+  config.module.rules[3].oneOf[1].include.push(pathBookSetupItem)
+}
+
+function removePreLinting(config) {
+  config.module.rules.splice(2, 1)
+}
+
+module.exports = ({ config }) => {
+  addAliases(config)
+  addSourceLoader(config)
+  allowImportingBookSetupItem(config)
+  removePreLinting(config)
 
   return config
 }
