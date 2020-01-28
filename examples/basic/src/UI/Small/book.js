@@ -1,10 +1,13 @@
-import { storiesOf } from 'dreact/helper-book'
+import { text } from 'dreact/helper-book'
 
 import Small from '.'
 
-storiesOf('Utils|Box', module).add(
-  'Default',
-  () => pug`
-    Small Hello
-  `,
-)
+export default {
+  title: 'Small',
+}
+
+export function Default() {
+  return pug`
+    Small= text('content', 'Some Text')
+  `
+}

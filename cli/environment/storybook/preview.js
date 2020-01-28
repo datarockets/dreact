@@ -1,5 +1,3 @@
-import path from 'path'
-
 import { configure, addDecorator } from '@storybook/react'
 import { withKnobs } from '@storybook/addon-knobs'
 
@@ -10,13 +8,10 @@ try {
   addDecorator(decorator)
 } catch (error) {}
 
-function loadStories() {
-  const req = require.context(
-    'process.cwd/src/UI',
-    true,
-    /^\.\/(?!.*node_modules).+\/book\.js$/,
-  )
-  req.keys().forEach(filename => req(filename))
-}
+const booksOutsideNodeModules = require.context(
+  'process.cwd/src/UI',
+  true,
+  /^\.\/(?!.*node_modules).+\/book\.js$/,
+)
 
-configure(loadStories, module)
+configure([booksOutsideNodeModules], module)

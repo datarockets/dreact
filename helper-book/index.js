@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-export { storiesOf } from '@storybook/react'
+import { storiesOf as originalStoriesOf } from '@storybook/react'
 
 export {
   array,
@@ -19,6 +19,11 @@ export {
 } from '@storybook/addon-knobs'
 
 export { action } from '@storybook/addon-actions'
+
+export const storiesOf = (...args) => {
+  console.error('"storiesOf" from dreact/helper-book is deprecated')
+  return originalStoriesOf(...args)
+}
 
 export const withState = (initialState = {}, storyFn) => {
   class StatefulComponent extends React.Component {
