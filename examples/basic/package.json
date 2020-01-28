@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "dreact": "file:../../",
+    "dreact": "file:../..",
     "react": "^16",
     "react-dom": "^16",
     "react-redux": "^7",
