@@ -10,7 +10,7 @@ import { storiesOf } from 'dreact/helper-book'
 
 ## Exported
 
-- #### `storiesOf`
+- #### ⛔️ `storiesOf` (deprecated)
 
 ### For [addon-knobs](https://github.com/storybookjs/storybook/tree/master/addons/knobs)
 
