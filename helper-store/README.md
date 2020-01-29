@@ -14,9 +14,7 @@ Organize store for redux with redux-saga.
   export default makeStoreConfigurer({
     initialState: {},
 
-    sagas: [
-      require('./custom-saga.js').default,
-    ],
+    sagas: [require('./custom-saga.js').default],
 
     reducers: {
       form: require('redux-form').reducer,

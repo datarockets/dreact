@@ -52,9 +52,9 @@
     "react-scripts": "^3",
     "redux": "^4.0",
     "redux-saga": "^1.1",
-    "stylelint": "^11",
+    "stylelint": "^13",
     "stylelint-config-datarockets": "^0.0.4-6",
-    "stylelint-config-prettier": "^6",
+    "stylelint-config-prettier": "^8",
     "stylelint-config-standard": "^19",
     "stylelint-config-styled-components": "^0.1",
     "stylelint-processor-styled-components": "^1"

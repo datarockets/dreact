@@ -1,11 +1,16 @@
 import fs from 'fs'
-import path from 'path'
 import { transformSync as babelTransform } from '@babel/core'
 import prettier from 'prettier'
 
 import plugin from '../environment/babel/accumulate-collections'
 
-jest.mock('fs')
+jest.mock('fs', () => ({
+  // We can't automatically generate mocks because babel fails to work with it, so we do the mock
+  // and inherit real methods with overriding only those used in our code
+  ...jest.requireActual('fs'),
+  readdirSync: jest.fn(),
+  existsSync: jest.fn(),
+}))
 
 const transform = (src, options) => {
   const transformed = babelTransform(src, {
