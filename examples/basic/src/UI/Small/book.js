@@ -1,9 +1,9 @@
-import { text } from 'dreact/helper-book'
+import { withState, text } from 'dreact/helper-book'
 
 import Small from '.'
 
 export default {
-  title: 'Small',
+  title: 'UI|Small',
 }
 
 export function Default() {
@@ -11,3 +11,13 @@ export function Default() {
     Small= text('content', 'Some Text')
   `
 }
+
+export const TestWithState = withState({ text: '' }, ({ state }) => {
+  return pug`
+    Small= state.get('text') || 'Type below to change text'
+
+    br
+
+    input(value=state.get('text') onChange=() => state.set({ text: event.target.value }))
+  `
+})

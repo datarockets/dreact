@@ -46,21 +46,27 @@ import { storiesOf } from 'dreact/helper-book'
   It allows creating stories with local state inside:
 
   ```jsx
-  import { storiesOf, withState } from 'dreact/helper-book'
+  import { withState } from 'dreact/helper-book'
+
+  export default {
+    title: 'Example',
+  }
+
+  export function Default() {
+    return pug`
+      p Hello, I'm a default message
+    `
+  }
 
   const initialState = { visible: false }
 
-  storiesOf('Example').add(
-    'Another',
-    withState(
-      initialState,
-      ({ state }) => pug`
-        button(onClick=() => state.toggle('visible')) Toggle
+  export const Example = withState(initialState, ({ state }) => {
+    return pug`
+      button(onClick=() => state.toggle('visible')) Toggle
   
-        = state.get('visible') ? 'Visible' : 'Hidden'
-      `,
-    ),
-  )
+      = state.get('visible') ? 'Visible' : 'Hidden'
+    `
+  })
   ```
 
   `state` has the following interface:
