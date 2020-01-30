@@ -1,10 +1,12 @@
 import { useCallback } from 'react'
-import { useSelector } from 'dreact/helper-store'
+import { useDispatch } from 'dreact/helper-store'
 
-export function useTriggerSayHello() {
-  useSelector(s => console.log(s))
+import * as actions from './actions'
+
+export function useTriggerSayHello(callbacks) {
+  const dispatch = useDispatch()
 
   return useCallback(() => {
-    console.log('a')
-  })
+    dispatch(actions.saveMessage.init({ ...callbacks, text: 'Hello' }))
+  }, [])
 }

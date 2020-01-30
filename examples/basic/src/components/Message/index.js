@@ -5,7 +5,10 @@ const Test = styled.div`
 `
 
 function Message(props) {
-  const trigger = useTriggerSayHello()
+  const trigger = useTriggerSayHello({
+    onSuccess: () => console.log('Success Callback'),
+    onFailure: () => console.log('Failure Callback'),
+  })
 
   return pug`
     p Hello from component

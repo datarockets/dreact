@@ -3,6 +3,7 @@ import createSagaMiddleware from 'redux-saga'
 import * as sagaEffects from 'redux-saga/effects'
 
 import errorCatcher from '../helper-sentry'
+import sagaHandleCallbacks from './saga.handleCallbacks'
 
 function makeStoreConfigurer(params) {
   if (process.env.NODE_ENV !== 'production') {
@@ -33,7 +34,10 @@ function makeStoreConfigurer(params) {
 
   function* rootSaga(run) {
     const task = yield sagaEffects.fork(function*() {
-      yield sagaEffects.all(params.sagas.map(saga => sagaEffects.call(saga)))
+      yield sagaEffects.all([
+        ...params.sagas.map(saga => sagaEffects.call(saga)),
+        sagaEffects.call(sagaHandleCallbacks),
+      ])
     })
 
     yield sagaEffects.take(RESTART.type)
