@@ -48,7 +48,11 @@ function makeStoreConfigurer(params) {
 
   return (initialState = params.initialState) => {
     const sagaMiddleware = createSagaMiddleware({
-      onError: (error, info) => errorCatcher.report(error, info),
+      onError: (error, info) => {
+        errorCatcher.report(error, info)
+        console.error(error)
+        console.error(info.sagaStack)
+      },
     })
 
     const enhancer = composeEnhancers(applyMiddleware(sagaMiddleware))
