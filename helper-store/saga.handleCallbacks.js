@@ -10,8 +10,8 @@ const getActionType = (type, target) => type.replace(INIT_PATTERN, `/${target}`)
 
 export default function*() {
   yield takeEvery(isInitAction, function*({ type, payload }) {
-    const onSuccessHandler = _.defaultTo(payload.onSuccess, _.noop)
-    const onFailureHandler = _.defaultTo(payload.onFailure, _.noop)
+    const onSuccessHandler = _.get(payload, 'onSuccess', _.noop)
+    const onFailureHandler = _.get(payload, 'onFailure', _.noop)
 
     const successWatcher = yield fork(function*() {
       const action = yield take(getActionType(type, 'SUCCESS'))
