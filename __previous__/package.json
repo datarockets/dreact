@@ -1,0 +1,93 @@
+{
+  "name": "dreact",
+  "version": "0.7.2",
+  "description": "Build web applications as easy as datarockets do",
+  "scripts": {
+    "lint": "prettier --check '**/*.{js,json,md,html}'",
+    "test": "jest"
+  },
+  "bin": {
+    "dreact": "./cli/bin/dreact.js"
+  },
+  "license": "MIT",
+  "repository": "github:datarockets/dreact",
+  "dependencies": {
+    "@babel/core": "^7",
+    "@frontrockets/redux-abstract-action": "^0.0.1",
+    "@sentry/browser": "^5.11.1",
+    "@storybook/addon-actions": "^5",
+    "@storybook/addon-knobs": "^5",
+    "@storybook/addon-storysource": "^5",
+    "@storybook/preset-create-react-app": "^1",
+    "@storybook/react": "^5",
+    "babel-eslint": "^10.0.3",
+    "babel-jest": "^25.1.0",
+    "babel-plugin-jsx-remove-data-test-id": "^2.1.3",
+    "babel-plugin-module-resolver": "^4.0.0",
+    "babel-plugin-react-require": "^3.1.3",
+    "babel-plugin-styled-components": "^1.10.7",
+    "babel-plugin-styled-components-require": "^1.1.0",
+    "babel-plugin-transform-react-pug": "^7.0.1",
+    "dotenv": "^8.2.0",
+    "enzyme": "^3.11",
+    "enzyme-adapter-react-16": "^1.15",
+    "eslint": "^6",
+    "eslint-config-airbnb": "^18",
+    "eslint-config-datarockets": "^0.0.4-6",
+    "eslint-config-prettier": "^6",
+    "eslint-import-resolver-babel-module": "^5.1",
+    "eslint-plugin-import": "^2",
+    "eslint-plugin-import-helpers": "^1",
+    "eslint-plugin-jsx-a11y": "^6",
+    "eslint-plugin-react": "^7",
+    "eslint-plugin-react-pug": "^0.8",
+    "find-up": "^4.1",
+    "identity-obj-proxy": "^3",
+    "jest": "^25.1",
+    "jest-enzyme": "^7.1",
+    "lodash": "^4",
+    "minimatch": "^3.0.4",
+    "module-alias": "^2.2.2",
+    "react-redux": "^7.1",
+    "react-scripts": "^3",
+    "redux": "^4.0",
+    "redux-saga": "^1.1",
+    "stylelint": "^13",
+    "stylelint-config-datarockets": "^0.0.4-6",
+    "stylelint-config-prettier": "^8",
+    "stylelint-config-standard": "^19",
+    "stylelint-config-styled-components": "^0.1",
+    "stylelint-processor-styled-components": "^1"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7",
+    "prettier": "^1"
+  },
+  "prettier": {
+    "semi": false,
+    "singleQuote": true,
+    "trailingComma": "all"
+  },
+  "babel": {
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "targets": {
+            "node": "current"
+          }
+        }
+      ]
+    ]
+  },
+  "jest": {
+    "testMatch": [
+      "<rootDir>/**/__tests__/**/*.{js,jsx,ts,tsx}",
+      "<rootDir>/**/*.{spec,test}.{js,jsx,ts,tsx}"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "./examples"
+    ]
+  }
+}
