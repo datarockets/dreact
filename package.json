@@ -5,6 +5,9 @@
   "scripts": {
     "lint": "prettier --check '**/*.{js,json,md,html}'"
   },
+  "bin": {
+    "dreact": "./bin/dreact.sh"
+  },
   "license": "MIT",
   "repository": "github:datarockets/dreact",
   "devDependencies": {
@@ -14,5 +17,9 @@
     "semi": false,
     "singleQuote": true,
     "trailingComma": "all"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "next": "^9.2.1"
   }
 }
