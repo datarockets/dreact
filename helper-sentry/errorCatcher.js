@@ -21,6 +21,18 @@ class ErrorCatcher {
     return this
   }
 
+  setUser(user) {
+    this.provider.setUser(user)
+
+    return this
+  }
+
+  addBreadcrumb(breadcrumb) {
+    this.provider.addBreadcrumb(breadcrumb)
+
+    return this
+  }
+
   start() {
     if (this.isReady) {
       this._init()
@@ -43,6 +55,25 @@ class ErrorCatcher {
       debug: this.params.isDebug,
       environment: this.params.environment,
       attachStacktrace: true,
+      sampleRate: 1,
+      beforeBreadcrumb(breadcrumb, hint) {
+        if (breadcrumb.category === 'ui.click' && hint.event.target) {
+          const isInteractiveElement = hint.event.target.tabIndex > -1
+          const hasTextInside = Boolean(hint.event.target.innerText)
+
+          if (isInteractiveElement && hasTextInside) {
+            breadcrumb.message += `{"${hint.event.target.innerText}"}`
+          }
+        }
+
+        if (breadcrumb.category === 'xhr' && breadcrumb.type === 'http') {
+          if (breadcrumb.data.status_code >= 400) {
+            breadcrumb.data.response = hint.xhr.responseText
+          }
+        }
+
+        return breadcrumb
+      },
     })
   }
 

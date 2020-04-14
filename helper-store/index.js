@@ -28,9 +28,28 @@ function makeStoreConfigurer(params) {
 
   const appReducer = combineReducers(params.reducers)
 
-  const rootReducer = params.reducerMiddleware
-    ? params.reducerMiddleware(appReducer)
-    : appReducer
+  const shouldCaptureAction = action => !/^@@redux-form/.test(action.type)
+  const shouldCapturePayload = action =>
+    !/^Session/.test(action.type) && !/\/(SUCCESS|FAILURE)/i.test(action.type)
+
+  const rootReducer = (state, action) => {
+    const { type, ...actionData } = action
+
+    if (shouldCaptureAction(action)) {
+      errorCatcher.addBreadcrumb({
+        message: type,
+        data: shouldCapturePayload(action) ? actionData : {},
+        category: 'redux.action',
+        level: 'debug',
+      })
+    }
+
+    const enhancedAppReducer = params.reducerMiddleware
+      ? params.reducerMiddleware(appReducer)
+      : appReducer
+
+    return enhancedAppReducer(state, action)
+  }
 
   function* rootSaga(run) {
     const task = yield sagaEffects.fork(function*() {
