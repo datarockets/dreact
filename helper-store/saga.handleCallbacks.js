@@ -13,19 +13,28 @@ export default function*() {
     const onSuccessHandler = _.get(payload, 'onSuccess', _.noop)
     const onFailureHandler = _.get(payload, 'onFailure', _.noop)
 
-    const successWatcher = yield fork(function*() {
+    let successWatcher
+    let failureWatcher
+
+    function* stopWacthers() {
+      yield cancel(successWatcher)
+      yield cancel(failureWatcher)
+    }
+
+    successWatcher = yield fork(function*() {
       const action = yield take(getActionType(type, 'SUCCESS'))
       onSuccessHandler(action.payload)
+      yield stopWacthers()
     })
 
-    const failureWatcher = yield fork(function*() {
+    failureWatcher = yield fork(function*() {
       const action = yield take(getActionType(type, 'FAILURE'))
       onFailureHandler(action.payload)
+      yield stopWacthers()
     })
 
     yield delay(MAX_WAITING_FOR_ACTION)
 
-    yield cancel(successWatcher)
-    yield cancel(failureWatcher)
+    yield stopWacthers()
   })
 }
