@@ -1,6 +1,6 @@
 {
   "name": "dreact",
-  "version": "0.7.4",
+  "version": "0.7.5",
   "description": "Build web applications as easy as datarockets do",
   "scripts": {
     "lint": "prettier --check '**/*.{js,json,md,html}'",
