@@ -35,15 +35,17 @@ const pathToPrettier = path.resolve(
   'prettier',
 )
 
+const isPrettierUsed = fs.existsSync(pathToPrettier)
+
 module.exports = {
   processors: ['stylelint-processor-styled-components'],
   extends: [
     'stylelint-config-datarockets',
     'stylelint-config-styled-components',
-    fs.existsSync(pathToPrettier) && 'stylelint-config-prettier',
+    isPrettierUsed && 'stylelint-config-prettier',
   ].filter(Boolean),
   rules: {
-    indentation: 2,
+    indentation: fs.existsSync(pathToPrettier) ? null : 2,
   },
   syntax: 'scss',
 }
