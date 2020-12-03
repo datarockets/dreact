@@ -14,7 +14,7 @@ function* saveMessage() {
   yield effects.put(actions.saveMessage.failure())
 }
 
-export default function*() {
+export default function* () {
   yield effects.all([
     effects.call(function* watchBasicActions() {
       yield effects.takeEvery(actions.saveMessage.INIT, saveMessage)
