@@ -6,8 +6,8 @@ const Test = styled.div`
 
 function Message(props) {
   const trigger = useTriggerSayHello({
-    onSuccess: () => console.log('Success Callback'),
-    onFailure: () => console.log('Failure Callback'),
+    onSuccess: () => alert('Success Callback'),
+    onFailure: () => alert('Failure Callback'),
   })
 
   return pug`

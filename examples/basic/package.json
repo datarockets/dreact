@@ -4,8 +4,8 @@
   "private": true,
   "dependencies": {
     "dreact": "file:../..",
-    "react": "^16",
-    "react-dom": "^16",
+    "react": "*",
+    "react-dom": "*",
     "react-redux": "^7",
     "styled-components": "^4"
   },
