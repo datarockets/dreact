@@ -1,6 +1,6 @@
 const path = require('path')
 
-module.exports = function(argv) {
+module.exports = function (argv) {
   process.argv = process.argv.concat([
     '--config-dir',
     path.resolve(__dirname, '..', 'environment', 'storybook'),

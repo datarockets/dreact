@@ -2,9 +2,6 @@ const fs = require('fs')
 const path = require('path')
 const crypto = require('crypto')
 
-const isValuableFile = filepath =>
-  /src\/collections\/\w+\/(reducer|saga).js$/.test(filepath)
-
 const DIR_COLLECTIONS = path.resolve(process.cwd(), 'src', 'collections')
 
 module.exports = () => {

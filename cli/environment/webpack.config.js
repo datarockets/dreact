@@ -8,21 +8,25 @@ const getClientDependency = module =>
   path.resolve(process.cwd(), 'node_modules', module)
 
 function addCustomEntryPoint(config) {
-  config.entry = config.entry.map(item => {
-    if (item.endsWith('/src/index.js')) {
-      return path.resolve(
-        process.cwd(),
-        'node_modules',
-        'dreact',
-        'cli',
-        'environment',
-        'webpack',
-        'entry.js',
-      )
-    }
+  const pathToOurEntryPoint = path.resolve(
+    process.cwd(),
+    'node_modules',
+    'dreact',
+    'cli',
+    'environment',
+    'webpack',
+    'entry.js',
+  )
 
-    return item
-  })
+  config.entry = Array.isArray(config.entry)
+    ? config.entry.map(item => {
+        if (item.endsWith('/src/index.js')) {
+          return pathToOurEntryPoint
+        }
+
+        return item
+      })
+    : pathToOurEntryPoint
 
   config.plugins.push(
     new webpack.DefinePlugin({
@@ -36,20 +40,15 @@ function addCustomEntryPoint(config) {
 }
 
 function addCustomBabelConfig(config) {
-  config.module.rules[2].oneOf[1].options.extends = path.resolve(
+  config.module.rules[1].oneOf[2].options.extends = path.resolve(
     __dirname,
     'babel.config.js',
   )
-  delete config.module.rules[2].oneOf[1].options.presets
 }
 
 function addCacheBoosterWhenCollectionsChanged(config) {
-  config.module.rules[2].oneOf[1].options.cacheIdentifier += ':'
-  config.module.rules[2].oneOf[1].options.cacheIdentifier += getCacheIdentifier()
-}
-
-function removeEslintBeforeBuilding(config) {
-  config.module.rules.splice(1, 1)
+  config.module.rules[1].oneOf[2].options.cacheIdentifier += ':'
+  config.module.rules[1].oneOf[2].options.cacheIdentifier += getCacheIdentifier()
 }
 
 function enhanceDependencyResolver(config) {
@@ -58,10 +57,17 @@ function enhanceDependencyResolver(config) {
     alias: {
       ...config.resolve.alias,
       react: getClientDependency('react'),
+      'react-dom': getClientDependency('react-dom'),
       'react-router-dom': getClientDependency('react-router-dom'),
       'styled-components': getClientDependency('styled-components'),
     },
   }
+}
+
+function removeEslintBeforeBuilding(config) {
+  config.plugins = config.plugins.filter(
+    plugin => plugin.constructor.name !== 'ESLintWebpackPlugin',
+  )
 }
 
 module.exports = (...args) => {

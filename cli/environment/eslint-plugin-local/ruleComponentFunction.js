@@ -3,7 +3,7 @@ const detectComponents = require('eslint-plugin-react-pug/lib/util/detectCompone
 module.exports = {
   create: detectComponents((context, components) => {
     return {
-      'Program:exit': function() {
+      'Program:exit': function () {
         const list = components.list()
 
         Object.keys(list).forEach(id => {

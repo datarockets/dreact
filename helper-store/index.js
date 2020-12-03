@@ -52,7 +52,7 @@ function makeStoreConfigurer(params) {
   }
 
   function* rootSaga(run) {
-    const task = yield sagaEffects.fork(function*() {
+    const task = yield sagaEffects.fork(function* () {
       yield sagaEffects.all([
         ...params.sagas.map(saga => sagaEffects.call(saga)),
         sagaEffects.call(sagaHandleCallbacks),

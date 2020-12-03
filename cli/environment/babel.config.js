@@ -10,8 +10,6 @@ const localConfigPath = path.resolve(process.cwd(), 'config/babel.config.js')
 module.exports = {
   extends: fs.existsSync(localConfigPath) ? localConfigPath : undefined,
 
-  presets: ['babel-preset-react-app'],
-
   plugins: [
     transformActions,
     accumulateCollections,
