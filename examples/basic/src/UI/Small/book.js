@@ -8,7 +8,7 @@ export default {
 
 export function Default() {
   return pug`
-    Small= text('content', 'Some Text')
+    Small= text('content', 'Some Text, configure in knobs')
   `
 }
 

@@ -20,6 +20,7 @@ function WithFont(props) {
 function StoryItemWrapper(storyFn) {
   return pug`
     WithFont
+      p asd
       = storyFn()
   `
 }

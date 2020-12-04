@@ -9,6 +9,7 @@ function addAliases(config) {
     ...config.resolve.alias,
     'process.cwd': path.resolve(CWD),
     react: getClientDependency('react'),
+    'react-dom': getClientDependency('react-dom'),
     'react-router-dom': getClientDependency('react-router-dom'),
     'styled-components': getClientDependency('styled-components'),
   }
@@ -31,23 +32,34 @@ function addSourceLoader(config) {
   })
 }
 
+function addCustomBabelConfig(config) {
+  config.module.rules[2].oneOf[2].options.extends = path.resolve(
+    __dirname,
+    '.babelrc',
+  )
+  delete config.module.rules[2].oneOf[2].options.presets
+}
+
 function allowImportingBookSetupItem(config) {
   const pathBookSetupItem = path.resolve(CWD, 'config', 'book.setup-item.js')
 
   config.resolve.plugins[1].allowedFiles.add(pathBookSetupItem)
 
-  config.module.rules[3].oneOf[1].include.push(pathBookSetupItem)
+  config.module.rules[2].oneOf[2].include.push(pathBookSetupItem)
 }
 
-function removePreLinting(config) {
-  config.module.rules.splice(2, 1)
+function removeEslintBeforeBuilding(config) {
+  config.plugins = config.plugins.filter(
+    plugin => plugin.constructor.name !== 'ESLintWebpackPlugin',
+  )
 }
 
-module.exports = ({ config }) => {
+module.exports = config => {
   addAliases(config)
   addSourceLoader(config)
+  addCustomBabelConfig(config)
   allowImportingBookSetupItem(config)
-  removePreLinting(config)
+  removeEslintBeforeBuilding(config)
 
   return config
 }
