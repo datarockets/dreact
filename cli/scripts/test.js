@@ -68,6 +68,11 @@ module.exports = function (argv) {
       '^src\\/(.*)$': '<rootDir>/src/$1',
       '^dreact\\/(.*)$': '<rootDir>/node_modules/dreact/$1',
       '^react$': '<rootDir>/node_modules/react',
+
+      // To avoid multiple nested enzymes, which come with other packages
+      '^enzyme$': '<rootDir>/node_modules/enzyme',
+      '^enzyme-adapter-react-16$':
+        '<rootDir>/node_modules/enzyme-adapter-react-16',
     },
     moduleFileExtensions: ['web.js', 'js', 'json', 'node'],
     watchPlugins: [
