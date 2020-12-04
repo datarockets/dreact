@@ -37,6 +37,7 @@ module.exports = function (argv) {
   }
 
   const config = {
+    roots: ['<rootDir>/src'],
     collectCoverageFrom: ['src/**/*.{js,jsx}'],
     setupFiles: [require.resolve('react-app-polyfill/jsdom')],
     setupFilesAfterEnv: setupTestsFiles,
@@ -45,16 +46,20 @@ module.exports = function (argv) {
       '<rootDir>/src/**/*.{spec,test}.{js,jsx,ts,tsx}',
     ],
     testEnvironment: 'jest-environment-jsdom-fourteen',
+    testRunner: require.resolve('jest-circus/runner'),
     transform: {
-      '^.+\\.(js|jsx|ts|tsx)$':
-        '<rootDir>/node_modules/dreact/cli/environment/jest/babelTransform.js',
-      '^.+\\.css$':
-        '<rootDir>/node_modules/react-scripts/config/jest/cssTransform.js',
-      '^(?!.*\\.(js|jsx|ts|tsx|css|json)$)':
-        '<rootDir>/node_modules/react-scripts/config/jest/fileTransform.js',
+      '^.+\\.(js|jsx|mjs|cjs|ts|tsx)$': require.resolve(
+        'dreact/cli/environment/jest/babelTransform.js',
+      ),
+      '^.+\\.css$': require.resolve(
+        'react-scripts/config/jest/cssTransform.js',
+      ),
+      '^(?!.*\\.(js|jsx|mjs|cjs|ts|tsx|css|json)$)': require.resolve(
+        'react-scripts/config/jest/fileTransform.js',
+      ),
     },
     transformIgnorePatterns: [
-      '\\/node_modules\\/(?!dreact\\/).+\\.(js|jsx)$',
+      '\\/node_modules\\/(?!dreact\\/).+\\.(js|jsx|mjs|cjs|ts|tsx)$',
       '^.+\\.module\\.(css|sass|scss)$',
     ],
     modulePaths: [],
@@ -69,6 +74,7 @@ module.exports = function (argv) {
       'jest-watch-typeahead/filename',
       'jest-watch-typeahead/testname',
     ],
+    resetMocks: true,
   }
 
   argv.push('--config', JSON.stringify(config))

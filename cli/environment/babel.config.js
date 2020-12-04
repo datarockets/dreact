@@ -10,6 +10,16 @@ const localConfigPath = path.resolve(process.cwd(), 'config/babel.config.js')
 module.exports = {
   extends: fs.existsSync(localConfigPath) ? localConfigPath : undefined,
 
+  presets: [
+    [
+      // We use it here to override `runtime` and to make it work for Jest
+      require.resolve('babel-preset-react-app'),
+      {
+        runtime: 'classic',
+      },
+    ],
+  ],
+
   plugins: [
     transformActions,
     accumulateCollections,
