@@ -9,8 +9,8 @@ exports[`passes the first argument to transformed function 1`] = `
 "import createAction from 'dreact/helper-actions'
 const test = createAction('CollectionName/test', {
   init: one => ({
-    two: one
-  })
+    two: one,
+  }),
 })
 "
 `;

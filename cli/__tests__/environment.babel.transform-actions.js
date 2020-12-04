@@ -13,6 +13,8 @@ const transform = (src, options) => {
     filepath: __filename,
     singleQuote: true,
     semi: false,
+    trailingComma: 'all',
+    arrowParens: 'avoid',
   })
 }
 

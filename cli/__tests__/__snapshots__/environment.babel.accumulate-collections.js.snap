@@ -4,8 +4,8 @@ exports[`when src/collections has reducers adds reducers property to the empty p
 "makeStoreConfigurer({
   reducers: {
     first: require('./First/reducer.js').default,
-    second: require('./Second/reducer.js').default
-  }
+    second: require('./Second/reducer.js').default,
+  },
 })"
 `;
 
@@ -14,8 +14,8 @@ exports[`when src/collections has reducers adds reducers to the existing param 1
   reducers: {
     first: require('./First/reducer.js').default,
     second: require('./Second/reducer.js').default,
-    form: FormReducer
-  }
+    form: FormReducer,
+  },
 })"
 `;
 
@@ -23,8 +23,8 @@ exports[`when src/collections has sagas adds sagas property to the empty params 
 "makeStoreConfigurer({
   sagas: [
     require('./First/saga.js').default,
-    require('./Second/saga.js').default
-  ]
+    require('./Second/saga.js').default,
+  ],
 })"
 `;
 
@@ -33,7 +33,7 @@ exports[`when src/collections has sagas adds sagas to the existing param 1`] = `
   sagas: [
     'existing',
     require('./First/saga.js').default,
-    require('./Second/saga.js').default
-  ]
+    require('./Second/saga.js').default,
+  ],
 })"
 `;
