@@ -12,7 +12,8 @@ module.exports = {
 
   presets: [
     [
-      // We use it here to override `runtime` and to make it work for Jest
+      // We use it here to override `runtime` and to make it work for Jest,
+      // and runtime is so because Pug currently can't handle it properly
       require.resolve('babel-preset-react-app'),
       {
         runtime: 'classic',
