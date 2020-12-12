@@ -8,16 +8,20 @@ const getConfigPath = name => path.resolve(__dirname, '..', 'environment', name)
 module.exports = function (argv) {
   if (argv[0] === 'js') {
     const configPath = getConfigPath('eslint.config.js')
-    process.exitCode = eslintCli.execute([
-      'eslint',
-      '--no-eslintrc',
-      '--config',
-      configPath,
-      '--ignore-path',
-      path.resolve(process.cwd(), '.gitignore'),
-      ...argv.slice(1),
-      './',
-    ])
+
+    ;(async function main() {
+      process.exitCode = await eslintCli.execute([
+        'eslint',
+        '--no-eslintrc',
+        '--config',
+        configPath,
+        '--ignore-path',
+        path.resolve(process.cwd(), '.gitignore'),
+        ...argv.slice(1),
+        './',
+      ])
+    })()
+
     return
   }
 
