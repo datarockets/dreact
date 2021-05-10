@@ -33,7 +33,7 @@ function addCustomEntryPoint(config) {
       __PROJECT_ENTRY_PATH: `"${path.resolve(
         process.cwd(),
         'src',
-        'index.js',
+        'index',
       )}"`,
     }),
   )
