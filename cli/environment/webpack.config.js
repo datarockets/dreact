@@ -30,11 +30,7 @@ function addCustomEntryPoint(config) {
 
   config.plugins.push(
     new webpack.DefinePlugin({
-      __PROJECT_ENTRY_PATH: `"${path.resolve(
-        process.cwd(),
-        'src',
-        'index.js',
-      )}"`,
+      __PROJECT_ENTRY_PATH: `"${path.resolve(process.cwd(), 'src', 'index')}"`,
     }),
   )
 }

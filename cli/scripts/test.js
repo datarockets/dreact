@@ -74,7 +74,7 @@ module.exports = function (argv) {
       '^enzyme-adapter-react-16$':
         '<rootDir>/node_modules/enzyme-adapter-react-16',
     },
-    moduleFileExtensions: ['web.js', 'js', 'json', 'node'],
+    moduleFileExtensions: ['web.js', 'js', 'jsx', 'json', 'node', 'ts', 'tsx'],
     watchPlugins: [
       'jest-watch-typeahead/filename',
       'jest-watch-typeahead/testname',
