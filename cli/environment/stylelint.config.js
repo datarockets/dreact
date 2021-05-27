@@ -1,5 +1,6 @@
 const fs = require('fs')
 const path = require('path')
+const _ = require('lodash')
 
 ;(function registerLocalPlugin(Module) {
   const options = {
@@ -35,17 +36,26 @@ const pathToPrettier = path.resolve(
   'prettier',
 )
 
-const isPrettierUsed = fs.existsSync(pathToPrettier)
+const pathToLocalConfig = path.resolve(
+  process.cwd(),
+  'config',
+  'stylelint.config.js',
+)
 
-module.exports = {
+const internalConfig = {
   processors: ['stylelint-processor-styled-components'],
   extends: [
     'stylelint-config-datarockets',
     'stylelint-config-styled-components',
-    isPrettierUsed && 'stylelint-config-prettier',
+    fs.existsSync(pathToPrettier) && 'stylelint-config-prettier',
   ].filter(Boolean),
   rules: {
     indentation: fs.existsSync(pathToPrettier) ? null : 2,
   },
   syntax: 'scss',
 }
+
+module.exports = _.merge(
+  internalConfig,
+  fs.existsSync(pathToLocalConfig) && require(pathToLocalConfig),
+)

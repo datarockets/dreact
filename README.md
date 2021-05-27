@@ -196,6 +196,10 @@ To implement the integration with sentry we need to set `REACT_APP_SENTRY_DSN`, 
 
   Modify our internal eslint config to conform your needs.
 
+- #### `/config/stylelint.config.js`
+
+  Modify our internal stylelint config to conform your needs.
+
 - #### `/config/jest.setup.js`
 
   Setup jest to run tests on your terms.
