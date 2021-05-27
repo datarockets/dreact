@@ -51,9 +51,20 @@ const pathToLocalConfig = path.resolve(
   'eslint.config.js',
 )
 
+const useTypescript = fs.existsSync(
+  path.resolve(process.cwd(), 'tsconfig.json'),
+)
+
 const internalConfig = {
-  plugins: ['react-pug', 'local', 'import-helpers'],
+  plugins: [
+    'react-pug',
+    'local',
+    'import-helpers',
+    useTypescript && '@typescript-eslint',
+  ].filter(Boolean),
   extends: [
+    useTypescript && 'plugin:@typescript-eslint/eslint-recommended',
+    useTypescript && 'plugin:@typescript-eslint/recommended',
     'datarockets',
     'plugin:react-pug/all',
     fs.existsSync(pathToPrettier) && 'prettier',
@@ -141,13 +152,35 @@ const internalConfig = {
     'react/prop-types': 'off',
     'react/no-unused-prop-types': 'off',
     'react/no-unused-state': 'off',
+
+    ...(useTypescript && {
+      'react/jsx-filename-extension': ['error', { extensions: ['.tsx'] }],
+      'no-use-before-define': 'off',
+      '@typescript-eslint/no-use-before-define': ['error'],
+      'import/extensions': [
+        'error',
+        'ignorePackages',
+        {
+          ts: 'never',
+          tsx: 'never',
+        },
+      ],
+    }),
   },
   settings: {
     'import/resolver': {
+      ...(useTypescript && {
+        node: {
+          extensions: ['.ts', '.tsx'],
+        },
+      }),
       'babel-module': {
         alias: aliases,
       },
     },
+    ...(useTypescript && {
+      'import/extensions': ['.ts', '.tsx'],
+    }),
   },
   reportUnusedDisableDirectives: true,
 }

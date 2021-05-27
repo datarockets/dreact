@@ -25,6 +25,29 @@ module.exports = function (argv) {
     return
   }
 
+  if (argv[0] === 'ts') {
+    const configPath = getConfigPath('eslint.config.js')
+
+    ;(async function main() {
+      process.exitCode = await eslintCli.execute([
+        'eslint',
+        '--no-eslintrc',
+        '--config',
+        configPath,
+        '--ignore-path',
+        path.resolve(process.cwd(), '.gitignore'),
+        '--ext',
+        '.ts,.tsx',
+        '--parser',
+        '@typescript-eslint/parser',
+        ...argv.slice(1),
+        './',
+      ])
+    })()
+
+    return
+  }
+
   if (argv[0] === 'styles') {
     const configPath = getConfigPath('stylelint.config.js')
     process.exitCode = stylelintCli([
