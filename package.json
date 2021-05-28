@@ -23,6 +23,8 @@
     "@storybook/addon-storysource": "^6",
     "@storybook/preset-create-react-app": "^3",
     "@storybook/react": "^6",
+    "@typescript-eslint/eslint-plugin": "^4.25.0",
+    "@typescript-eslint/parser": "^4.25.0",
     "babel-eslint": "^10.0.3",
     "babel-jest": "^26",
     "babel-plugin-jsx-remove-data-test-id": "^2.1.3",
