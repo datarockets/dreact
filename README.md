@@ -218,6 +218,10 @@ To implement the integration with sentry we need to set `REACT_APP_SENTRY_DSN`, 
 
   Lint JavaScript files
 
+- #### `dreact lint ts`
+
+  Lint Typescript (.ts, .tsx) files
+
 - #### `dreact lint styles`
 
   Lint styles in the project
