@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "dreact": "../../packages/core",
+    "react": "^17",
+    "react-dom": "^17"
+  }
+}

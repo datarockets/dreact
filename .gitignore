@@ -4,4 +4,9 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-examples/**/yarn.lock
+
+
+docker-compose.override.yml
+
+examples/*/.next
+examples/*/build

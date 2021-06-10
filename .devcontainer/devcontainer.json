@@ -1,0 +1,20 @@
+{
+  "dockerComposeFile": [
+    "../docker-compose.yml",
+    "../docker-compose.override.yml"
+  ],
+  "service": "devcontainer",
+  "shutdownAction": "none",
+  "workspaceFolder": "/home/dev/main",
+  "postStartCommand": "sudo chgrp dev /var/run/docker.sock && sudo chmod 775 /var/run/docker.sock",
+  "userEnvProbe": "interactiveShell",
+  "remoteEnv": {
+    "HOST_PROJECT_PATH": "${localWorkspaceFolder}"
+  },
+  "extensions": [
+    "editorconfig.editorconfig",
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "ms-azuretools.vscode-docker"
+  ]
+}

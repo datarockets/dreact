@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -e
+
+dir="$(pwd)"
+hex=$(printf $dir | od -A n -t x1 | tr -d '[\n\t ]')
+
+export COMPOSE_PROFILES=dev
+
+code --folder-uri=vscode-remote://dev-container+${hex}/home/dev/main

@@ -1,0 +1,20 @@
+{
+  "name": "dreact",
+  "version": "0.10.0",
+  "description": "> TODO: description",
+  "homepage": "https://github.com/datarockets/dreact#readme",
+  "license": "ISC",
+  "bin": {
+    "dreact": "bin/dreact-bridge.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/datarockets/dreact.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "dependencies": {
+    "next": "^10.2"
+  }
+}

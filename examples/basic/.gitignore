@@ -1,6 +1,0 @@
-.env.local
-
-test-cli.js
-
-.eslintcache
-build
