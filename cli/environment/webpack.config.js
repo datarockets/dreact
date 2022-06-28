@@ -5,7 +5,7 @@ const buildGeneralConfig = require('react-scripts/config/webpack.config')
 const getCacheIdentifier = require('./webpack/getCacheIdentifier')
 
 const getClientDependency = module =>
-  path.resolve(process.cwd(), 'node_modules', module)
+  path.resolve(process.cwd(), 'node_modules', module, 'index.js')
 
 function addCustomEntryPoint(config) {
   const pathToOurEntryPoint = path.resolve(
@@ -36,15 +36,15 @@ function addCustomEntryPoint(config) {
 }
 
 function addCustomBabelConfig(config) {
-  config.module.rules[1].oneOf[2].options.extends = path.resolve(
+  config.module.rules[1].oneOf[3].options.extends = path.resolve(
     __dirname,
     'babel.config.js',
   )
 }
 
 function addCacheBoosterWhenCollectionsChanged(config) {
-  config.module.rules[1].oneOf[2].options.cacheIdentifier += ':'
-  config.module.rules[1].oneOf[2].options.cacheIdentifier += getCacheIdentifier()
+  config.module.rules[1].oneOf[3].options.cacheIdentifier += ':'
+  config.module.rules[1].oneOf[3].options.cacheIdentifier += getCacheIdentifier()
 }
 
 function enhanceDependencyResolver(config) {
