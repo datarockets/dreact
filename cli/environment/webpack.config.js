@@ -44,7 +44,8 @@ function addCustomBabelConfig(config) {
 
 function addCacheBoosterWhenCollectionsChanged(config) {
   config.module.rules[1].oneOf[3].options.cacheIdentifier += ':'
-  config.module.rules[1].oneOf[3].options.cacheIdentifier += getCacheIdentifier()
+  config.module.rules[1].oneOf[3].options.cacheIdentifier +=
+    getCacheIdentifier()
 }
 
 function enhanceDependencyResolver(config) {

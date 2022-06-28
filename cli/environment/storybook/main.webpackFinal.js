@@ -2,7 +2,8 @@ const path = require('path')
 
 const CWD = process.cwd()
 
-const getClientDependency = module => path.resolve(CWD, 'node_modules', module, 'index.js')
+const getClientDependency = module =>
+  path.resolve(CWD, 'node_modules', module, 'index.js')
 
 function addAliases(config) {
   config.resolve.alias = {
