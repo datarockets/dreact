@@ -54,7 +54,7 @@
     "minimatch": "^3.0.4",
     "module-alias": "^2.2.2",
     "react-redux": "^7.1",
-    "react-scripts": "^4.0.1",
+    "react-scripts": "^5.0.1",
     "redux": "^4.0",
     "redux-saga": "^1.1",
     "stylelint": "^13",
