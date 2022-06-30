@@ -10,7 +10,7 @@
     "styled-components": "^4"
   },
   "eslintConfig": {
-    "extends": "./node_modules/dreact/cli/environment/eslint.config.js"
+    "extends": "../../cli/environment/eslint.config.js"
   },
   "browserslist": {
     "production": [
