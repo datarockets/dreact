@@ -2,7 +2,8 @@ const path = require('path')
 
 const CWD = process.cwd()
 
-const getClientDependency = module => path.resolve(CWD, 'node_modules', module)
+const getClientDependency = module =>
+  path.resolve(CWD, 'node_modules', module, 'index.js')
 
 function addAliases(config) {
   config.resolve.alias = {
@@ -33,19 +34,19 @@ function addSourceLoader(config) {
 }
 
 function addCustomBabelConfig(config) {
-  config.module.rules[2].oneOf[2].options.extends = path.resolve(
+  config.module.rules[2].oneOf[3].options.extends = path.resolve(
     __dirname,
     '.babelrc',
   )
-  delete config.module.rules[2].oneOf[2].options.presets
+  delete config.module.rules[2].oneOf[3].options.presets
 }
 
 function allowImportingBookSetupItem(config) {
   const pathBookSetupItem = path.resolve(CWD, 'config', 'book.setup-item.js')
 
-  config.resolve.plugins[1].allowedFiles.add(pathBookSetupItem)
+  config.resolve.plugins[0].allowedFiles.add(pathBookSetupItem)
 
-  config.module.rules[2].oneOf[2].include.push(pathBookSetupItem)
+  config.module.rules[2].oneOf[3].include.push(pathBookSetupItem)
 }
 
 function removeEslintBeforeBuilding(config) {
