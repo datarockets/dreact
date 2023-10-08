@@ -47,7 +47,6 @@ const internalConfig = {
   extends: [
     'stylelint-config-datarockets',
     'stylelint-config-styled-components',
-    fs.existsSync(pathToPrettier) && 'stylelint-config-prettier',
   ].filter(Boolean),
   rules: {
     indentation: fs.existsSync(pathToPrettier) ? null : 2,
